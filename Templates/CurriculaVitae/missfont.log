@@ -1,0 +1,13 @@
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ifsym10
+mktextfm Zapfino
+mktextfm Zapfino
+mktextfm Zapfino
+mktextfm Zapfino
+mktextfm Zapfino/B
+mktextfm Zapfino
+mktextfm Zapfino/I
+mktextfm Zapfino
+mktextfm Zapfino/BI
+mktextfm Zapfino
+mktextfm Zapfino
+mktextfm Zapfino

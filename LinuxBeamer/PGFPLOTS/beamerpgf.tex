@@ -1,0 +1,488 @@
+%%% beamerpgf.tex --- 
+%% 
+%% Description: 
+%% Author: Hongyi Wu(吴鸿毅)
+%% Email: wuhongyi@qq.com 
+%% Created: 五 10月 24 20:58:05 2014 (+0800)
+%% Last-Updated: 四 7月 30 20:43:58 2015 (+0800)
+%%           By: Hongyi Wu(吴鸿毅)
+%%     Update #: 105
+%% URL: http://wuhongyi.github.io 
+
+\documentclass[presentation]{beamer}
+
+\usepackage{fontspec}
+\setsansfont{WenQuanYi Zen Hei}%Linux下使用文泉驿正黑或其他系统中可用的字体
+\XeTeXlinebreaklocale "zh"  % 表示用中文的断行
+\XeTeXlinebreakskip = 0pt plus 1pt % 多一点调整的空间
+\setlength{\parindent}{2em}%设置缩进为两个大写M的宽度，大约为两个汉字的宽度
+
+\usepackage{graphics}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{beamerthemesplit}
+\usepackage{hyperref}%为PDF文档创建超链接
+\usepackage{amsmath}%数学符号与公式
+\usepackage{amsfonts} %数学符号与字体
+\usepackage{supertabular}
+\usepackage{multirow} %合并表格列
+\usepackage{tabularx} %调节表格宽度
+
+\usetheme{CambridgeUS}%深红色，好看
+
+%%pgf
+\usepackage{pgfplotstable}
+\usepackage{tikz}
+
+\title{吴鸿毅beamer模板}
+\subtitle{Beamer pgfplots}
+\author{吴鸿毅}
+\institute{哈尔滨工程大学 核科学与技术学院}
+\date{\today}
+\logo{\includegraphics[height=1cm, width=1cm]{logo.jpeg}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}
+\frametitle{目录}
+    \tableofcontents     %你也可以插入选项 [pausesections]
+\end{frame}
+
+\section{beamer}
+\subsection{PGF PLOTS}
+
+\begin{frame}
+  \frametitle{3.2.3}%帧标题
+  \begin{tikzpicture}
+    \begin{axis}[
+      ]
+      % density of Normal distribution:
+      \addplot[
+        red,
+        domain=-3e-3:3e-3,
+        samples=201,
+      ]
+              {exp(-x^2 / (2e-3^2)) / (1e-3 * sqrt(2*pi))};
+    \end{axis}
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.2.5}
+  \begin{tikzpicture}
+    \begin{axis}[
+        axis lines=left,
+        scaled ticks=false,
+        xticklabel style={
+          rotate=90,
+          anchor=east,
+          /pgf/number format/precision=3,
+          /pgf/number format/fixed,
+          /pgf/number format/fixed zerofill,
+        },
+      ]
+      % density of Normal distribution:
+      \newcommand\MU{0}
+      \newcommand\SIGMA{1e-3}
+      \addplot[red,domain=-3*\SIGMA:3*\SIGMA,samples=201]
+              {exp(-(x-\MU)^2 / 2 / \SIGMA^2)
+                / (\SIGMA * sqrt(2*pi))};
+    \end{axis}
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.3.1}%帧标题
+  % Preamble: \pgfplotsset{width=7cm,compat=1.11}
+  %\pgfplotsset{compat=1.5}
+  \begin{tikzpicture}
+    \begin{loglogaxis}[
+        title=Convergence Plot,
+        xlabel={Degrees of freedom},
+        ylabel={$L_2$ Error},
+      ]
+      \addplot table {data_d2.dat};
+    \end{loglogaxis}
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.3.2}%帧标题
+  % Preamble: \pgfplotsset{width=7cm,compat=1.11}
+  \begin{tikzpicture}
+    \begin{loglogaxis}[
+        title=Convergence Plot,
+        xlabel={Degrees of freedom},
+        ylabel={$L_2$ Error},
+      ]
+      \addplot table {data_d2.dat};
+      \addplot table {data_d3.dat};
+      \addplot table {data_d4.dat};
+    \end{loglogaxis}
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.3.3}%帧标题
+  \begin{tikzpicture}
+    \begin{loglogaxis}[
+        title=Convergence Plot,
+        xlabel={Degrees of freedom},
+        ylabel={$L_2$ Error},
+        grid=major,
+        legend entries={$d=2$,$d=3$,$d=4$},
+      ]
+      \addplot table {data_d2.dat};
+      \addplot table {data_d3.dat};
+      \addplot table {data_d4.dat};
+    \end{loglogaxis}
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.3.4}%帧标题
+  \begin{tikzpicture}
+    \begin{loglogaxis}[
+        title=Convergence Plot,
+        xlabel={Degrees of freedom},
+        ylabel={$L_2$ Error},
+        grid=major,
+        legend entries={$d=2$,$d=3$,$d=4$},
+      ]
+      \addplot table {data_d2.dat};
+      \addplot table {data_d3.dat};
+      \addplot table {data_d4.dat};
+      \addplot table[
+        x=dof,
+        y={create col/linear regression={y=l2_err,
+            variance list={1000,800,600,500,400,200,100}}}]
+               {data_d4.dat};
+    \end{loglogaxis}
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.3.5-1}%帧标题
+  \begin{tikzpicture}
+    \begin{loglogaxis}[
+        title=Convergence Plot,
+        xlabel={Degrees of freedom},
+        ylabel={$L_2$ Error},
+        grid=major,
+        legend entries={$d=2$,$d=3$,$d=4$},
+      ]
+      \addplot table {data_d2.dat};
+      \addplot table {data_d3.dat};
+      \addplot table {data_d4.dat};
+      \addplot table[
+        x=dof,
+        y={create col/linear regression={y=l2_err,
+            variance list={1000,800,600,500,400,200,100}}}]
+               {data_d4.dat}
+               % save two points on the regression line
+               % for drawing the slope triangle
+               coordinate [pos=0.25] (A)
+               coordinate [pos=0.4] (B)
+               ;
+               % save the slope parameter:
+               \xdef\slope{\pgfplotstableregressiona}
+               % draw the opposite and adjacent sides
+               % of the triangle
+               \draw (A) -| (B)
+               node [pos=0.75,anchor=west]
+               {\pgfmathprintnumber{\slope}};
+    \end{loglogaxis}
+  \end{tikzpicture}
+\end{frame}
+
+%% \begin{frame}
+%%   \frametitle{3.3.5-2}%帧标题
+%%   \begin{tikzpicture}
+%%     \begin{loglogaxis}
+%%       \addplot table {data_d2.dat}
+%%       coordinate [pos=0.25] (A)
+%%       coordinate [pos=0.4] (B)
+%%       ;
+%%       \draw[-stealth] (A) -| (B);
+%%       \node[pin=0:Special.] at (769,1.623e-04) {};
+%%     \end{loglogaxis}
+%%   \end{tikzpicture}
+%% \end{frame}
+
+\begin{frame}
+  \frametitle{3.3.5-3}%帧标题
+  \begin{tikzpicture}
+    \begin{loglogaxis}[
+        tiny,
+      ]
+      \addplot table {data_d2.dat}
+      node [pos=1,pin=0:Special.] {}
+      ;
+    \end{loglogaxis}
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.3.5-4}%帧标题
+  \begin{tikzpicture}
+    \begin{loglogaxis}[
+        tiny,
+        clip=false,
+      ]
+      \addplot table {data_d2.dat}
+      node [pos=1,pin=0:Special.] {}
+      ;
+    \end{loglogaxis}
+  \end{tikzpicture}
+\end{frame}
+
+%% \begin{frame}
+%%   \frametitle{3.4.2}%帧标题
+%%   \begin{tikzpicture}
+%%     \begin{axis}
+%%       \addplot[
+%%         scatter,
+%%         only marks,
+%%         point meta=explicit symbolic,
+%%         scatter/classes={
+%%           a={mark=square*,blue},%
+%%           b={mark=triangle*,red},%
+%%           c={mark=o,draw=black}},
+%%       ]
+%%       table[meta=label] {
+%%         x      y      label
+%%         0.1    0.15   a
+%%         0.45   0.27   c
+%%         0.02   0.17   a
+%%         0.06   0.1    a
+%%         0.9    0.5    b
+%%         0.5    0.3    c
+%%         0.85   0.52   b
+%%         0.12   0.05   a
+%%         0.73   0.45   b
+%%         0.53   0.25   c
+%%         0.76   0.5    b
+%%         0.55   0.32   c
+%%       };
+%%     \end{axis}
+%%   \end{tikzpicture}
+%% \end{frame}
+
+%% \begin{frame}
+%%   \frametitle{3.4.3}%帧标题
+%% \begin{tikzpicture}
+%% \begin{axis}[
+%% enlargelimits=0.2,
+%% ]
+%% \addplot+[nodes near coords,only marks,
+%% point meta=explicit symbolic]
+%% table[meta=label] {
+%% x   y   label
+%% 0.5 0.2 1
+%% 0.2 0.1 t2
+%% 0.7 0.6 3
+%% 0.35 0.4 Y4
+%% 0.65 0.1 5
+%% };
+%% \end{axis}
+%% \end{tikzpicture}
+%% \end{frame}
+
+\begin{frame}
+  \frametitle{3.5.4-1}%帧标题
+% Preamble: \pgfplotsset{width=7cm,compat=1.11}
+\begin{tikzpicture}
+\begin{axis}[
+title={$x \exp(-x^2-y^2)$},
+xlabel=$x$, ylabel=$y$,
+small,
+]
+\addplot3
+{exp(-x^2-y^2)*x};
+\end{axis}
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.5.4-2}%帧标题
+\begin{tikzpicture}
+\begin{axis}[
+title={$x \exp(-x^2-y^2)$},
+xlabel=$x$, ylabel=$y$,
+small,
+]
+\addplot3[
+surf,
+domain=-2:2,
+domain y=-1.3:1.3,
+]
+{exp(-x^2-y^2)*x};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+
+%% \begin{frame}
+%%   \frametitle{3.5.4-3}%帧标题
+%% \begin{tikzpicture}
+%% \begin{axis}[
+%% title={$x \exp(-x^2-y^2)$},
+%% xlabel=$x$, ylabel=$y$,
+%% small,
+%% ]
+%% \addplot3[
+%% contour gnuplot,
+%% domain=-2:2,
+%% domain y=-1.3:1.3,
+%% ]
+%% {exp(-x^2-y^2)*x};
+%% \end{axis}
+%% \end{tikzpicture}
+%% \end{frame}
+
+%% \begin{frame}
+%%   \frametitle{3.5.4-4}%帧标题
+%% \begin{tikzpicture}
+%% \begin{axis}[
+%% title={$x \exp(-x^2-y^2)$},
+%% enlarge x limits,
+%% view={0}{90},
+%% xlabel=$x$, ylabel=$y$,
+%% small,
+%% ]
+%% \addplot3[
+%% domain=-2:2,
+%% domain y=-1.3:1.3,
+%% contour gnuplot={number=14},
+%% thick,
+%% ]
+%% {exp(-x^2-y^2)*x};
+%% \end{axis}
+%% \end{tikzpicture}
+%% \end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+\begin{tikzpicture}
+\path (0cm,0cm) coordinate(O);
+\draw (O) circle(3cm);
+\draw (O)++(0.1cm,-0.8cm) arc(45:315:0.2cm);
+\path ++(-1.5cm,0.5cm) coordinate (P1) ++(3cm,0cm) coordinate (P2);
+\foreach \i in {1,2}{
+\draw (P\i) ellipse(1cm and 0.5cm);
+\fill[black] (P\i) circle (0.5cm);
+\fill[gray] (P\i) ellipse (0.125cm and 0.25cm);
+}
+\begin{scope}
+\clip (O)++(0,-1.8cm) circle (0.7cm);
+\fill[color=gray](-3cm,-3cm) rectangle (2cm,-2cm);
+\end{scope}
+\end{tikzpicture}
+\end{frame}
+
+
+
+
+
+
+
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%
+\begin{frame}[]
+\begin{frame}
+  \frametitle{}%帧标题
+  %\framesubtitle{}%帧副题
+
+\end{frame}
+其中可选参数有下列选项：
+allowframebreaks 当帧环境中的内容过多，超出一幅幻灯片所能显示的范围时，超出部分就看不到，如果使用该选项，帧环境就能自动换幅，即自动增加一幅以放置超出的内容。
+allowdisplaybreaks 允许多行公式中间换幅，该选项必须与allowframebreaks选项同时使用，否则无效。
+t 每幅幻灯片中的内容顶对齐。
+c 默认值，即每幅幻灯片中的内容垂直居中。帧环境的t、c选项优先于beamer的t、c选项。
+b 每幅幻灯片中的内容底对齐。
+fragile 它告诉beamer帧环境中的内容是“脆弱”的，不能按通常的意义来编译，例如在使用抄录环境verbatim时就要添加此选项。
+containsverbatim 使用抄录环境verbatim或\verb命令时要添加此选项。
+squeeze 压缩文本行之间的行距。
+shrink 帧环境中的内容超出一幅幻灯片所能显示的范围时，超出部分就看不到了，如果使用该选项，可自动缩小帧环境中所有内容的字体尺寸，并压缩行距，使帧环境中的全部内容都能够放在一幅幻灯片里。使用本选项时，squeeze选项也就自动被启用了。
+plain 取消各种导航条和微标（logo），以便创建其他样式的导航条或是显示一张满幅的插图等。微标是用\logo命令生成的插图，通常是校徽或是会徽。
+%%%%%%%%%%%%%%%%%%
+\beamersetaveragebackground{black!10}%设置帧背景德文颜色
+
+\alert{}%将其中的文本字体改为红色，它的作用类似于\emph命令，用于强调某一词语。
+
+
+\begin{tabular}{|c|c|c|c|c|}%表格合并行列
+\hline \hline 
+lable 1-1 & label 1-2 & label 1-3 & label 1 -4 & label 1-5\\\hline
+label 2-1 & label 2-2 & label 3-3 & label 4-4 & label 5-5 \\\hline
+\multirow{2}{*}{Multi-Row} & \multicolumn{2}{|c|}{Multi-Column} & \multicolumn{2}{|c|}{\multirow{2}{*}{Multi-Row and Col}} \\\cline{2-3} 
+& column-1 & column-2 & \multicolumn{2}{|c|}{}\\%补偿上面的两列合并的那一行
+\hline
+\end{tabular}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% beamerpgf.tex ends here

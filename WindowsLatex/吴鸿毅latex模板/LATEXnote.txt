@@ -1,0 +1,228 @@
+LATEXnote.txt --- 
+;; 
+;; Description: 
+;; Author: Hongyi Wu(吴鸿毅)
+;; Email: wuhongyi@qq.com 
+;; Created: 五 5月  2 08:04:43 2014 (+0800)
+;; Last-Updated: 五 5月  2 15:31:50 2014 (+0800)
+;;           By: Hongyi Wu(吴鸿毅)
+;;     Update #: 10
+;; URL: http://wuhongyi.github.io 
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+空白距离
+LATEX将空格和制表符等空白字符视为相同的空白距离。多个连续的空白字符等同为一个空白字符。在LATEX文件中,每行开始的空白字符将被忽略,而单个的回车符被视为一空格。
+LATEX使用空行来结束段落,两行文本中的空行标志上一段落的结束和新段落的开始。如同空格一样,多个空行所起的作用和一个空行的作用是相同的。
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+特殊字符
+下面的这些字符是LATEX的保留字符,它们或在LATEX中有特定的用处,或不一定包含在所有的字库中。如果你直接在文本中使用它们,通常在排版结果中将不会得到这些字符,而且还会导致LATEX做一些你不希望发生的事情。
+# $ % ^ & _ { } ~ \
+\# \$ \% \^{} \& \_ \{ \} \~{}  $\backslash$
+反斜线 \ 不能够通过在其前添加另外的反斜线来得到,相反的,\\ 是一个用来断行的命令。
+LATEX忽略命令后面的空格。如果你希望在命令后面得到一空格,可以在命令后面加上 {} 和一个空格,或者加上一个特殊的空白距离命令。{} 将阻止LATEX吞噬掉命令后面的空格。
+\\ or \newline 另起一行,而不另起一段。
+\\* 在强行断行后,还禁止分页。
+\newpage 另起一新页。
+\linebreak[n], \nolinebreak[n], \pagebreak[n] and \nopagebreak[n] 命令的效果可以从它们的名称看出来。通过可选参数n,作者可以影响这些命令的效果。n可以置为0和4之间的数。
+在 LATEX 中,用两个 ‘ 产生左引号,用两个 ’ 产生右引号。一个 ‘ 和一个 ’ 产生一个单引号。
+破折号和连字号，LATEX中有四种短划标点符号。连续用不同数目的短划,可以得到其中的三种。第四个实际不是标点符号,它是数学中的减号。
+- 连字号‘-’
+-- 短破折号‘–’
+--- 长破折号‘—’
+$-$ 减号‘−’
+$\sim$ 波浪号(∼)
+$-30\,^{\circ}\mathrm{C}$ 度的符号 (◦)
+\ldots 省略号 (. . . )
+注音符号和特殊字符,在字母 i 和 j 上标一个注音符号,它的点儿必须去掉。这个可由 \i 和 \j 做到。
+空格前的反斜线符号产生一个不能伸长的空格。波浪字符 ‘~’ 也产生一个不能伸长的空格,并且禁止断行。句号前的命令 \@ 说明这个句号是句子的末尾,即使它紧跟一个大写字母。
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+注释
+当LATEX在处理源文件时,如果遇到一个百分号字符 %,那么LATEX将忽略 % 后的该行文本,分行符以及下一行开始的空白字符。% 也可以用来分割不允许有空格或分行的较长输入文本。
+如果需要较长的注释,你可以使用 verbatim 宏集所提供的 comment 环境。当然,你需要在源文件的导言区里加上命令 \usepackage{verbatim}。
+\begin{comment}
+在这里的会被注释掉。
+\end{comment}
+这个方法不能使用在像数学环境等一些复杂的环境中。
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+源文件的结构
+LATEX需要所处理的源文件遵从一定的结构,每个 LATEX 文档必须以如下的命令开始:
+\documentclass{...}这个命令指定了你所写的文档的类别。在此之后,你可以加入控制文档式样的命令,或者使用如下的命令来调入一些宏集,进而为LATEX系统增添一些新的功能。\documentclass和\begin{document}之间的区域称作导言区。
+\usepackage{...}
+当完成所有的设置后,你可利用如下的命令来开始你的文档:
+\begin{document}
+正文部分，正文部分。。。
+\end{document}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+文档布局
+\documentclass[options]{class} 这里class指明了所要创建的文档类型。文档类的属性可以通过选项(options)来加以调节,不同的选项用逗号隔开。
+文档类
+article 排版科技期刊、短报告、程序文档、邀请函等。
+report 排版多章节的长报告、短篇的书籍、博士论文等。
+book 排版书籍。
+slides 排版幻灯片。其中使用了较大的sans serif字体。
+文档类选项
+10pt, 11pt, 12pt 设置文档所使用的字体的大小。如果没有声明任何选项,缺省将使用 10pt 字体。
+a4paper, letterpaper, . . .定义纸张的大小,缺省的设置为letterpaper。此外,还可以使用a5paper,b5paper,executivepaper 和 legalpaper。
+fleqn 设置该选项将使数学公式左对齐,而不是中间对齐。
+leqno 设置该选项将使数学公式的编号防置于左侧。
+titlepage, notitlepage 指定是否在文档标题(document title)后开始一新页。article文档类缺省不开始新页,而book文档类则相反。
+onecolumn, twocolumn 指定LATEX以单列(one column)或双列(two column)方式排版文档。
+twoside, oneside 指定LATEX排版的文档为双面或单面格式。article和report缺省使用单面格式,而book则缺省使用双面格式。需要注意的是该选项仅作用于文档的式样。twoside选项不会通知你的打印机让以得到双面的打印输出。
+openright, openany 此选项决定新的章是仅仅在右边页(奇数页)还是在下一可用页开始。该选项对 article 文档类不起作用,因为该类中并没有定义“章”(Chapter)。report 类中新的一章开始于下一可用页,而 book 类中新的一章总是开始于右边页。
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+页面式样
+LATEX支持三种预定的页眉、页脚(header/footer)格式,称为页面式样(page styles)。命令 \pagestyle{style} 中的参数定义了所使用页面式样。
+plain 页眉为空,页脚由居中的的页码组成。这是默认的页面式样。
+headings 页眉由当前的章节标题和页码组成,页脚为空。
+empty 设置页眉、页脚均为空。
+可以使用命令改变当前页的页面式样: \thispagestyle{style}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+标题,章和节
+对article风格的文档,有下列分节命令:
+\section{...}  \paragraph{...}
+\subsection{...}  \subparagraph{...}
+\subsubsection{...}
+对 report 和 book 风格的文档,还有其他两个分节命令:
+\part{...}  \chapter{...}
+因为 article 风格的文档不划分为章,所以很容易把它作为一章插入书籍文档中。节之间的间隔,节的序号和标题的字号由 L TEX 自动设置。
+分节的两个命令有些特殊性:
+• 命令 \part 不影响章的序号。
+• 命令 \appendix 不带参量,只把章的序号改用为字母标记。
+上面列出的分节命令也以“带星”的形式出现。“带星”的命令通过在命令名称后加 * 来实现。它们生成的节标题既不出现于目录,也不带序号。例如,命令 \section{Help} 的“带星”形式为 \section*{Help}。
+\tableofcontents 在其出现的位置插入目录。为了得到正确的目录内容,一个新文档必须编译两次。有时还要编译三次。
+整篇文档的标题由命令 \maketitle 产生。标题的内容必须在调用 \maketitle 以前由命令\title{...}, \author{...} 和可选的\date{...} 定义。在命令 \author 中,可以输入几个用 \and 命令分开的名字。
+\frontmatter 应接着命令 \begin{document} 使用。它把页码更换为罗马数字。对于正文前的内容普遍使用带星的命令(例如,\chapter*{Preface}),以阻止LATEX对它们排序。
+\mainmatter 应出现在书的第一章紧前面。它打开阿拉伯页码计数器,并对页码从新计数。
+\appendix 标志书中附录材料的开始。该命令后的各章序号改用字母标记。
+\backmatter 应该插入与书中最后一部分内容的紧前面,如参考文献和索引。在标准文档类型中,它对页面没有什么效果。
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+交叉引用、脚注、强调
+在书籍、报告和论文中,需要对图、表和文本的特殊段落进行交叉引用。LATEX提供了如下交叉引用命令
+\label{marker }, \ref{marker } and \pageref{marker }
+其中 marker 是使用者选择的标识符。如果在节、子节、图、表或定理后面输入 \label 命令,LATEX把 \ref 替换为相应的序号。\pageref 命令排印 \label 输入处的页码。
+\footnote{footnote text} 把脚注内容排印于当前页的页脚位置。脚注命令总是置于其指向的单词或句子的后面。脚注是一个句子或句子的一部分,所以应用逗号或句号结尾。
+\underline{text} 用下划线来强调重要的单词。
+\emph{text} 用一种斜体字体排印要强调的单词。
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+环境
+\begin{environment} 
+text
+\end{environment} 其中 environment 是环境的名称。只要保持调用顺序,环境可以嵌套几次。
+itemize 环境用于简单的列表,enumerate 环境用于带序号的列表,description环境用于带描述的列表。列表编号由 \item 或 \item[marker] 产生。
+flushleft 和 flushright 环境分别产生靠左排列和靠右排列的段落。center 环境产生居中的文本。如果你不输入命令 \\ 指定断行点,LATEX将自行决定。
+quote 环境对重要断语和例子的引用很重要。有两个类似的环境:quotation 和 verse 环境。quotation 环境用于超过几段的较长引用,因为它对段落进行缩进。verse 环境用于诗歌,在诗歌中断行很重要。在一行的末尾用 \\ 断行,在每一段后留一空行。
+\begin{verbatim} 和 \end{verbatim} 之间的文本将直接打印,包括所有的断行和空白,就像在打字机上键入一样,不执行任何LATEX命令。在一个段落中,类似的功能可由 \verb+text+ 完成。+仅是分隔符的一个例子。除了*或空格,可以使用任意一个字符。
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+表格
+tabular 环境能用来排印带有水平和铅直表线的漂亮表格。LATEX自动确定每一列的宽度。命令 \begin{tabular}{table spec} 的参量table spec定义了表格的式样。用一个l产生左对齐的列,用一个r产生右对齐的列,用一个c产生居中的列;用p{宽度值width}产生相应宽度、包含自动断行文本的列;|产生铅直表线。在tabular环境中,用&跳入下一列,用\\开始新的一行,用\hline插入水平表线。用\cline{j-i}可添加部分表线,其中j和i分别表示表线的起始列和终止列的序号。表列分隔符可由 @{...} 构造。这个命令去掉表列之间的间隔,代之为两个花括号间的任何输入。一个用途在于的十进制数对齐问题。另一个可能应用在于用 @{} 压缩表列右端空间。
+由于没有内建的方法使十进制数按小数点对齐,9 我们可以使用两列“作弊”到达这个目的:整数右对齐,小数左对齐。\begin{tabular} 行中的命令 @{.} 用一个 “.” 取代了表列间的正常间隔,从而给出了按小数点表列对齐的效果。不要忘记用表列分隔符&取代十进制数的小数点!使用命令 \multicolumn 可在数值“表列”上放置一个表列标签。
+\begin{tabular}{c r @{.} l} 
+Pi expression & \multicolumn{2}{c}{Value} \\ 
+\hline 
+$\pi$ & 3&1416 \\ 
+$\pi^{\pi}$ & 36&46 \\ 
+$(\pi^{\pi})^{\pi}$ & 80662&7 \\ 
+\end{tabular} 
+用表格环境排印的材料总是呆在同一页上。如果要排印一个长表格,可以看一下 supertabular 和 longtabular 环境。
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+数学公式
+段落中的数学表达式应该置于 \( 和 \), $ 和 $ 或者 \begin{math} 和\end{math} 之间。对于较大的数学式子,最好的方法是使用显示式样来排版:将它们放置于 \[ 和 \] 或 \begin{displaymath} 和 \end{displaymath} 之间。这样排版出的公式是没有编号的。如果希望LATEX对其添加编号的话,可以使用equation环境来达到这一目的。利用 \label 和 \ref 对公式加以引用。
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+宏包
+\usepackage{booktabs} %用于表格中加下划线
+\usepackage{graphicx} %用于图像
+\usepackage{indentfirst} %首行缩进
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+插入图片
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[height=85pt]{xemod_1.jpg}
+\end{figure}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+设置行间距
+\usepackage{setspace}
+\singlespacing % interligne normal (par défaut)
+\onehalfspacing % interligne×1,5
+\doublespacing % interligne×2
+\setstretch{baselinestretch}{} % interligne×
+\begin{singlespace} % interligne normal (par défaut)
+  ...
+\end{singlespace}
+\begin{onehalfspace} % interligne×1,5
+  ...
+\end{onehalfspace}
+\begin{doublespace} % interligne×2
+...
+\end{doublespace}
+\begin{spacing}{2.5} % interligne×2.5
+...
+\end{spacing}
+
+对齐方式
+一行对齐：\leftline{左对齐} \centerline{居中} \rightline{右对齐}
+多行或者段落对齐：
+左对齐 \begin{flushleft}...\end{flushleft}
+居中 \begin{center}...\end{center}
+右对齐 \begin{flushright}...\end{flushright}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+插入代码
+\usepackage{color,xcolor} % 支持彩色文本、底色、文本框等
+\usepackage{listings}
+\lstset{
+	language=C++, %用于设置语言为C++
+	numbers=left, %设置行号位置
+%     numberstyle=\tiny, %设置行号大小
+	frame=single, %设置边框格式
+    escapeinside=``, %逃逸字符(1左面的键)，用于显示中文
+	keywordstyle=\color{red} \bfseries, %设置关键词为蓝色，需要引xcolor宏包
+	identifierstyle=\color{blue},
+	basicstyle=\ttfamily, 
+	commentstyle=\color{green} \textit,
+	stringstyle=\ttfamily, 
+	numberstyle=\color{magenta},
+	breaklines, %自动折行
+     extendedchars=false, %解决代码跨页时，章节标题，页眉等汉字不显示的问题
+	xleftmargin=2em,xrightmargin=2em, aboveskip=1em, %设置边距
+     tabsize=4, %设置tab空格数
+	showstringspaces=false,
+%	frame=shadowbox, %边框
+	captionpos=b,
+}
+用法
+\begin{lstlisting}
+...
+\end{lstlisting}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+\mbox{text} 保证把text内容排在同一行上。在任何情况下,这个命令把它的参量排在一起(同一行上)。
+$\heartsuit$ 心形符号
+\thispagestyle{empty}%该页无页眉页脚
+\newpage %另起一页
+\tableofcontents % 插入目录
+\pagenumbering{arabic}%自此处页码开始计数 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

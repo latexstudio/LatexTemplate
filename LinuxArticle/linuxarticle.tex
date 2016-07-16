@@ -1,0 +1,321 @@
+%%% linuxarticle.tex --- 
+%% 
+%% Description: 
+%% Author: Hongyi Wu(吴鸿毅)
+%% Email: wuhongyi@qq.com 
+%% Created: 五 8月 15 09:10:59 2014 (-0400)
+%% Last-Updated: 四 9月 10 10:41:11 2015 (+0800)
+%%           By: Hongyi Wu(吴鸿毅)
+%%     Update #: 67
+%% URL: http://wuhongyi.github.io 
+
+\documentclass[11pt,a4paper,titlepage]{article}
+%横向排版（可省略参数 landscape），文章的标题单独占据一页（可省略参数 titlepage），标题与文章正文排在同一页面（可省略参数 notitlepage），单双面排版（可省略参数 oneside 与 twoside）
+\usepackage[slantfont,boldfont]{xeCJK} 
+
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}%页面边距设置
+\usepackage{multicol,multirow} %分栏
+\usepackage{balance}%双栏文档底部对齐
+\usepackage{indentfirst}% 首行缩进
+\usepackage{setspace}% 调节行间距  
+\usepackage{booktabs}% 用于表格中加下划线，cmidrule(r){2-2}
+\usepackage{color,xcolor} % 支持彩色文本、底色、文本框等
+
+
+\usepackage{tikz}%画图功能
+\usetikzlibrary{patterns}
+\usetikzlibrary{plotmarks}
+%% \begin{figure}[htbp]
+%% \begin{center}
+%% \scalebox{0.5}{\input{hpx.tex}}
+%% \caption{Image ({\tt hpx.tex}) generated thanks to {\tt TTeXDump}}
+%% \end{center}
+%% \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Using Code%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\definecolor{keywordcolor}{rgb}{0.8,0.1,0.5}
+\usepackage{listings}
+\lstset{
+	language=C++, %用于设置语言为C++
+	numbers=left, %设置行号位置
+%     numberstyle=\tiny, %设置行号大小
+	frame=single, %设置边框格式
+    escapeinside=``, %逃逸字符(1左面的键)，用于显示中文
+	keywordstyle=\color{red} \bfseries, %设置关键词为蓝色，需要引xcolor宏包
+	identifierstyle=\color{blue},
+	basicstyle=\ttfamily, 
+	commentstyle=\color{green} \textit,
+	stringstyle=\ttfamily, 
+	numberstyle=\color{magenta},
+	breaklines, %自动折行
+     extendedchars=false, %解决代码跨页时，章节标题，页眉等汉字不显示的问题
+	xleftmargin=2em,xrightmargin=2em, aboveskip=1em, %设置边距
+     tabsize=4, %设置tab空格数
+	showstringspaces=false,
+%	frame=shadowbox, %边框
+	captionpos=b,
+}
+%\begin{lstlisting}
+%...
+%\end{lstlisting}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Using Code%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{graphicx}                % 用于图像
+%\begin{figure}[!htb]
+%  \centering
+%  \includegraphics[height=85pt]{xemod_1.jpg}
+%\end{figure}
+
+%% \usepackage[cm-default]{fontspec}%选项[cm-default]主要用来解决使用数学环境时数学符号不能正常显示的问题。
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+%系统中文查看命令：fc-list :lang=zh
+
+%字体重命名，方便使用
+%% \newfontfamily\times{Times New Roman}
+\newCJKfontfamily{\song}{SimSun}
+\newCJKfontfamily{\hei}{SimHei}
+\newCJKfontfamily{\kai}{KaiTi}
+\newCJKfontfamily{\fangsong}{FangSong}
+
+\setmainfont{Times New Roman}%文档正文默认英语字体,设置衬线字体
+%% \setsansfont {}%设定无衬线字体
+\setCJKmainfont[BoldFont={SimSun},ItalicFont={KaiTi}]{SimSun}%设置默认中文字体
+\setCJKsansfont{SimHei}
+\setCJKmonofont{FangSong}% 设置等宽字体
+%Sans Serif 无衬线字体 楷体、黑体、幼圆 \sansfont 。Serif 衬线字体 对应中文的 宋、仿宋\mainfont
+
+\defaultfontfeatures{Mapping=tex-text}%如果没有它会有一些tex特殊字符无法正常使用，比如连字符
+\newcommand{\yihao}{\fontsize{26pt}{26pt}\selectfont} % 一号, 单倍行距
+\newcommand{\erhao}{\fontsize{22pt}{22pt}\selectfont} % 二号, 单倍行距
+\newcommand{\xiaoer}{\fontsize{18pt}{18pt}\selectfont} % 小二, 单倍行距
+\newcommand{\sanhao}{\fontsize{16pt}{16pt}\selectfont} % 三号, 单倍行距
+\newcommand{\xiaosan}{\fontsize{15pt}{15pt}\selectfont} % 小三, 单倍行距
+\newcommand{\sihao}{\fontsize{14pt}{14pt}\selectfont} % 四号, 单倍行距
+\newcommand{\banxiaosi}{\fontsize{13pt}{13pt}\selectfont} % 半小四, 单倍行距
+\newcommand{\xiaosi}{\fontsize{12pt}{12pt}\selectfont} % 小四, 单倍行距
+\newcommand{\dawuhao}{\fontsize{11.5pt}{11.5pt}\selectfont} % 大五号, 单倍行距
+\newcommand{\wuhao}{\fontsize{10.5pt}{10.5pt}\selectfont} % 五号, 单倍行距
+\newcommand{\xiaowu}{\fontsize{9.5pt}{9.5pt}\selectfont} % 小五号, 单倍行距
+\newcommand{\banbanxiaosi}{\fontsize{12pt}{12pt}\selectfont}% 半半小四, 单倍行距
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%以下是一些命令或环境的重定义或自定义%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\contentsname}{目录} % 将Contents改为目录
+\renewcommand{\abstractname}{摘要} % 将Abstract改为摘要
+\renewcommand{\refname}{参考文献} % 将References改为参考文献
+%\newtheorem{property}{问题}
+%\newtheorem{proposition}{猜测}
+%\renewcommand{\contentsname}{\center\hei{\sanhao 目录}}
+%\renewcommand{\refname}{\textbf{\xiaosi{\song 参考文献}}}      % 将References改为参考文献
+%\newenvironment{chabstract}{\hei{\xiaosi摘要：}}           %定义中文摘要
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%以上是一些命令或环境的重定义或自定义%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[pagestyles]{titlesec}%章节标题位置center，页眉页脚设置
+% 页眉页脚方式一：
+\newpagestyle{main}{% 页眉页脚
+\sethead{\small\S\,\thesection\quad\sectiontitle}{}{$\cdot$~\thepage~$\cdot$}%页眉
+\setfoot{北京大学}{物理学院}{\kai 吴鸿毅}%页脚
+\footrule%画页脚线
+\headrule%画页眉线
+}
+\pagestyle{main}
+% 页眉页脚方式二：
+%\usepackage{fancyhdr}                
+%\pagestyle{fancy}
+%\lhead{\small\S\,\thesection\quad\sectiontitle}
+%\chead{}
+%\rhead{$\cdot$~\thepage~$\cdot$}
+%\lfoot{\kai 哈尔滨工程大学}
+%\cfoot{\kai 核科学与技术学院}
+%\rfoot{\kai 吴鸿毅}
+
+%%% espace inter graphe geshi %设置行间距
+%\usepackage{setspace}
+%\singlespacing % interligne normal (par défaut)
+%\onehalfspacing % interligne×1,5
+%\doublespacing % interligne×2
+%\setstretch{baselinestretch}{} % interligne×
+%\begin{singlespace} % interligne normal (par défaut)
+%  ...
+%\end{singlespace}
+%\begin{onehalfspace} % interligne×1,5
+%  ...
+%\end{onehalfspace}
+%\begin{doublespace} % interligne×2
+%...
+%\end{doublespace}
+%\begin{spacing}{2.5} % interligne×2.5
+%...
+%\end{spacing}
+
+%对齐方式
+%一行对齐：\leftline{左对齐} \centerline{居中} \rightline{右对齐}
+%多行或者段落对齐：
+%左对齐 \begin{flushleft}...\end{flushleft}
+%居中 \begin{center}...\end{center}
+%右对齐 \begin{flushright}...\end{flushright}
+
+%\thispagestyle{empty}%该页无页眉页脚
+%\newpage %另起一页
+%\tableofcontents % 插入目录
+%\pagenumbering{arabic}%自此处页码开始计数  
+
+
+\title{\kai\Huge 用~\LaTeX~写科技论文% 论文标题
+\thanks{\kai 这是一个为初学者写的~\LaTeX~论文模板,未经作者允许可以随意下载使用并修改传播,目的是让更多的人迅速上手用~\LaTeX~系统写作。}
+}
+\author{吴鸿毅\\
+            wuhongyi@qq.com}
+\date{\hei 2014年8月16日 于哈尔滨}
+
+\usepackage[colorlinks,linkcolor=black,citecolor=black]{hyperref} %保证它是文档导言区的最后一行命令，超链接
+
+\XeTeXdefaultencoding"UTF8"
+
+\begin{document}
+\maketitle%显示标题信息
+\tableofcontents %插入目录，需要编译两次才能出现。
+%\vspace*{5pt}%插入空白
+\newpage%另起一页
+
+\section{大标题}
+\subsection{中标题}
+\subsubsection{小标题}
+latex{\Huge 测试}。 dgrteitueritreghddgvsndkja发送读后感看到个对方阅读三等奖还得个宋丹丹积分斯蒂芬与iynxcvbx回复快递费核速度快解放后。
+大奖赛括号看到三等奖分公司就会发三等奖疯狂。
+
+斯蒂芬卡死对方苏菲以urywsdfhs 很快大家好发送。第四咖啡店宋斯柯达服务三大发速度个发送库虚报面向从苏丹红发送库斯柯达就会发送考虑。
+\subsubsection{小标题2}
+测试完毕。
+
+\section{学术表格}
+
+\begin{table}[htbp]
+\kai
+\caption{\hei 浮动环境中的三线表}
+\label{tab:threesome}
+\centering
+\begin{tabular}{lll}
+\hline
+操作系统& 发行版& 编辑器\\
+\hline
+Windows & MikTeX & TeXnicCenter \\
+Unix/Linux & TeX Live & Emacs \\
+Mac OS & MacTeX & TeXShop \\
+\hline
+\end{tabular}
+\end{table} 
+
+\section{编辑数学公式}
+\indent% 恢复缩进
+\kai
+\TeX~有诸如AMS\TeX、\LaTeX~等宏库。在~FreeBSD~下,缺省的宏库是~te\TeX。
+Knuth~用~\$~符号界定数学公式,意味着每个好的公式都是无价之宝。
+有了~\TeX~系统,输入数学公式变得简单愉快。如,
+L\'{e}vy~定理在分布函数和特征函数之间搭建了一座桥梁。由公式~()~可得
+\begin{eqnarray}
+\label{DensityCharacteristic}% 自定义的标记
+f(x)&=&\frac{1}{2\pi}\int^{+\infty}_{-\infty} e^{-itx}\varphi(t)dt
+\end{eqnarray}
+ 在~\TeX~环境里,数学公式的表达是很自然的,绝大多数命令就是英文的数学
+专有名词或它们的缩写,如果你以前读过英文的数学文献,记忆这些命令是不难的。
+手头有个命令快速寻查表是很方便的,
+我用的是~Hypertext Help with \LaTeX,网上可以搜到,是免费的。
+
+\section{符号、字体、颜色等}
+\begin{itemize}
+\item 特殊字符:\# \$ \% \^{} \& \_ \{ \} \~{} $\backslash \cdots$
+\item 字体大小:{\tiny tiny} {\small small} {\normalsize normalsize}
+{\large large} {\Large Large} {\huge huge} {\Huge Huge}
+\item 各种颜色:{\color{red} 红色} {\color{yellow} 黄色} {\color{blue} 蓝色}
+{\color{magenta} 洋红} {\color{cyan} 蓝绿}
+\end{itemize}
+
+\section{图形表格等浮动对象}
+\index{贝叶斯方法}贝叶斯方法~\cite{Gelman}~主要用于小样本数据分析,它利用参数先验分布和后验分布之差异进行统计推断,其一般步骤是:
+\begin{enumerate}
+\item 构建概率模型,包括参数的先验分布。
+\item 给定观察数据,计算参数的后验分布。
+\item 分析模型的效果,如有必要,回到第一步。
+\end{enumerate}
+下面,我们给一个表格的例子:
+\begin{center}
+\begin{table}[!h]% 强制在原位显示表格
+\centering
+\caption{二维随机向量$(X,Y)$的边缘分布}
+\begin{tabular}{l|ccccc|c}
+$_X$\hspace{3mm} $^Y$&$y_1$&$y_2$&$\cdots$&$y_j$&$\cdots$\\
+\hline
+$x_1$ &$p_{11}$&$p_{12}$&$\cdots$&$p_{1j}$&$\cdots$&$p_{1\cdot}$\\
+$x_2$ &$p_{21}$&$p_{22}$&$\cdots$&$p_{2j}$&$\cdots$&$p_{2\cdot}$\\
+$\vdots$&$\vdots$&$\vdots$&$\vdots$&$\vdots$&$\vdots$&$\vdots$ \\
+$x_i$
+&$p_{i1}$&$p_{i2}$&$\cdots$&$p_{ij}$&$\cdots$&$p_{i\cdot}$\\
+$\vdots$&$\vdots$&$\vdots$&$\vdots$&$\vdots$&$\vdots$&$\vdots$ \\
+\hline
+&$p_{\cdot 1}$&$p_{\cdot 2}$&$\cdots$&$p_{\cdot j}$&$\cdots$&1
+\label{marginal distribution}
+\end{tabular}
+\end{table}
+\end{center}
+在表~\ref{marginal distribution}中,$p_{\cdot j}=\sum\limits_i p_{ij}$,类似地,
+$ p_{i\cdot}=\sum\limits_j p_{ij}$。
+% 插入一个图片
+%\includegraphics[width=50mm,height=40mm]{figures/demo.eps}
+
+\begin{lstlisting}
+#ifndef _WUVFILEMANAGER_H_
+#define _WUVFILEMANAGER_H_
+
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <fstream>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+class wuVFileManager
+{
+public:
+  wuVFileManager() {cout<<"creating wuVFileManager..."<<endl;};
+  virtual ~wuVFileManager() {cout<<"deleting wuVFileManager..."<<endl;};
+
+public:
+  virtual bool OpenFile(const char* fn)=0;
+  virtual bool OpenFile(const string& fn)=0;
+  virtual bool CloseFile()=0;
+  virtual void FillOneRecord()=0;
+  virtual void SetDataFormat(const char* fn)=0;
+  virtual void SetDataFormat(const string& fn)=0;
+  // virtual void PushData(string, string)=0;
+  // virtual void PushData(int, string)=0;
+  // virtual void PushData(double, string)=0;
+  virtual void PushData(string)=0;
+  virtual void PushData(int)=0;
+  virtual void PushData(double)=0;
+
+  virtual string GetNameTFile()=0;
+  virtual string GetNameFFile()=0;
+};
+
+
+#endif /* _WUVFILEMANAGER_H_ */
+\end{lstlisting}
+
+
+%%%%%%%%%% 参考文献 %%%%%%%%%%
+\begin{thebibliography}{}
+\bibitem[Gelman et~al., 2004]{Gelman} Gelman, A., Carlin, J.~B., Stern, H.~S.Rubin, D.~B. (2004)Bayesian Data Analysis (Second Edition).
+\end{thebibliography}
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% linuxarticle.tex ends here

@@ -1,0 +1,871 @@
+%%% beamertikz.tex --- 
+%% 
+%% Description: 
+%% Author: Hongyi Wu(吴鸿毅)
+%% Email: wuhongyi@qq.com 
+%% Created: 四 7月 30 14:48:28 2015 (+0800)
+%% Last-Updated: 四 7月 30 20:18:03 2015 (+0800)
+%%           By: Hongyi Wu(吴鸿毅)
+%%     Update #: 71
+%% URL: http://wuhongyi.github.io 
+
+\documentclass[presentation]{beamer}
+
+\usepackage{fontspec}
+\setsansfont{WenQuanYi Zen Hei}%Linux下使用文泉驿正黑或其他系统中可用的字体
+\XeTeXlinebreaklocale "zh"  % 表示用中文的断行
+\XeTeXlinebreakskip = 0pt plus 1pt % 多一点调整的空间
+\setlength{\parindent}{2em}%设置缩进为两个大写M的宽度，大约为两个汉字的宽度
+
+\usepackage{graphics}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{beamerthemesplit}
+\usepackage{hyperref}%为PDF文档创建超链接
+\usepackage{amsmath}%数学符号与公式
+\usepackage{amsfonts} %数学符号与字体
+\usepackage{supertabular}
+\usepackage{multirow} %合并表格列
+\usepackage{tabularx} %调节表格宽度
+\usepackage{multicol} %分栏
+
+\usetheme{CambridgeUS}%深红色，好看
+
+%%pgf
+\usepackage{pgfplotstable}
+\usepackage{tikz}
+\usetikzlibrary{arrows,backgrounds,calc,decorations.pathmorphing,fit,intersections,petri,positioning,through}
+
+
+
+\title{吴鸿毅beamer模板}
+\subtitle{The TikZ and PGF}
+\author{吴鸿毅}
+\institute{哈尔滨工程大学 核科学与技术学院}
+\date{\today}
+\logo{\includegraphics[height=1cm, width=1cm]{logo.jpeg}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}
+\frametitle{目录}
+    \tableofcontents     %你也可以插入选项 [pausesections]
+\end{frame}
+
+\section{beamer}
+\subsection{TikZ}
+
+\begin{frame}
+  \frametitle{2.2.1}%帧标题
+  \begin{tikzpicture}
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.4}%帧标题
+  \begin{tikzpicture}
+    \filldraw [gray] (0,0) circle[radius=2pt]
+    (1,1) circle[radius=2pt]
+    (2,1) circle[radius=2pt]
+    (2,0) circle[radius=2pt];
+    \draw (0,0) .. controls (1,1) and (2,1) .. (2,0);
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+    \draw (-1,0) .. controls (-1,0.555) and (-0.555,1) .. (0,1)
+    .. controls (0.555,1) and (1,0.555) .. (1,0);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.5}%帧标题
+  \begin{tikzpicture}
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+    \draw (0,0) circle [radius=1cm];%画圆
+    \draw (0,0) ellipse [x radius=1.2cm,y radius=0.6cm];%画椭圆
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.6}%帧标题
+  \begin{tikzpicture}
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+    \draw (0,0) circle [radius=1cm];
+    \draw (0,0) rectangle (0.5,0.5);
+    \draw (-0.5,-0.5) rectangle (-1,-1);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.7}%帧标题
+  \begin{tikzpicture}
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+    \draw (0,0) circle [radius=1cm];
+    \draw[step=.5cm] (-1.4,-1.4) grid (1.4,1.4);
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+    \draw (0,0) circle [radius=1cm];
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.10}%帧标题
+  \begin{tikzpicture}
+    \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+    \draw (0,0) circle [radius=1cm];
+    \draw (3mm,0mm) arc [start angle=0, end angle=30, radius=3mm];
+  \end{tikzpicture}
+
+  \begin{tikzpicture}[scale=0.5]
+    \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+    \draw (0,0) circle [radius=1cm];
+    \draw (3mm,0mm) arc [start angle=0, end angle=30, radius=3mm];
+  \end{tikzpicture}
+
+  \tikz \draw (0,0)
+  arc [start angle=0, end angle=315,x radius=1.75cm, y radius=1cm];
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.11}%帧标题
+  \begin{tikzpicture}[scale=2]
+    \clip (-0.1,-0.2) rectangle (1.1,0.75);
+    \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+    \draw (0,0) circle [radius=1cm];
+    \draw (3mm,0mm) arc [start angle=0, end angle=30, radius=3mm];
+  \end{tikzpicture}
+
+  \begin{tikzpicture}[scale=2]
+    \clip[draw] (0.5,0.5) circle (.6cm);
+    \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+    \draw (0,0) circle [radius=1cm];
+    \draw (3mm,0mm) arc [start angle=0, end angle=30, radius=3mm];
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.12}%帧标题
+  \tikz \draw (0,0) rectangle (1,1) (0,0) parabola (1,1);
+
+  \tikz \draw[x=1pt,y=1pt] (0,0) parabola bend (4,16) (6,12);
+
+  A sine \tikz \draw[x=1ex,y=1ex] (0,0) sin (1.57,1); curve.
+
+  \tikz \draw[x=1.57ex,y=1ex] (0,0) sin (1,1) cos (2,0) sin (3,-1) cos (4,0)
+                              (0,1) cos (1,0) sin (2,-1) cos (3,0) sin (4,1);
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.13}%帧标题
+  \begin{multicols}{2}
+  \begin{tikzpicture}[scale=3]
+    \clip (-0.1,-0.2) rectangle (1.1,0.75);
+    \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+    \draw (0,0) circle [radius=1cm];
+    \fill[green!20!white] (0,0) -- (3mm,0mm)
+    arc [start angle=0, end angle=30, radius=3mm] -- (0,0);
+  \end{tikzpicture}
+
+  %% \fill[green!20!white] (0,0) -- (3mm,0mm)
+  %% arc [start angle=0, end angle=30, radius=3mm] -- cycle;
+
+  \begin{tikzpicture}[line width=5pt]
+    \draw (0,0) -- (1,0) -- (1,1) -- (0,0);
+    \draw (2,0) -- (3,0) -- (3,1) -- cycle;
+    \useasboundingbox (0,1.5); % make bounding box higher
+  \end{tikzpicture}
+
+  \begin{tikzpicture}[scale=3]
+    \clip (-0.1,-0.2) rectangle (1.1,0.75);
+    \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+    \draw (0,0) circle [radius=1cm];
+    \filldraw[fill=green!20!white, draw=green!50!black] (0,0) -- (3mm,0mm)
+    arc [start angle=0, end angle=30, radius=3mm] -- cycle;
+  \end{tikzpicture}
+  \end{multicols}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.14}%帧标题
+  \tikz \shade (0,0) rectangle (2,1) (3,0.5) circle (.5cm);
+
+  \begin{tikzpicture}[rounded corners,ultra thick]
+    \shade[top color=yellow,bottom color=black] (0,0) rectangle +(2,1);
+    \shade[left color=yellow,right color=black] (3,0) rectangle +(2,1);
+    \shadedraw[inner color=yellow,outer color=black,draw=yellow] (6,0) rectangle +(2,1);
+    \shade[ball color=green] (9,.5) circle (.5cm);
+  \end{tikzpicture}
+
+  \begin{tikzpicture}[scale=3]
+    \clip (-0.1,-0.2) rectangle (1.1,0.75);
+    \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+    \draw (-1.5,0) -- (1.5,0);
+    \draw (0,-1.5) -- (0,1.5);
+    \draw (0,0) circle [radius=1cm];
+    \shadedraw[left color=gray,right color=green, draw=green!50!black]
+    (0,0) -- (3mm,0mm)
+    arc [start angle=0, end angle=30, radius=3mm] -- cycle;
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.15}%帧标题
+  \begin{multicols}{2}
+    \begin{tikzpicture}[scale=3]
+      \clip (-0.1,-0.2) rectangle (1.1,0.75);
+      \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+      \draw (-1.5,0) -- (1.5,0);
+      \draw (0,-1.5) -- (0,1.5);
+      \draw (0,0) circle [radius=1cm];
+      \filldraw[fill=green!20,draw=green!50!black] (0,0) -- (3mm,0mm)
+      arc [start angle=0, end angle=30, radius=3mm] -- cycle;
+      \draw[red,very thick] (30:1cm) -- +(0,-0.5);
+    \end{tikzpicture}
+
+    \begin{tikzpicture}[scale=3]
+      \clip (-0.1,-0.2) rectangle (1.1,0.75);
+      \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+      \draw (-1.5,0) -- (1.5,0);
+      \draw (0,-1.5) -- (0,1.5);
+      \draw (0,0) circle [radius=1cm];
+      \filldraw[fill=green!20,draw=green!50!black] (0,0) -- (3mm,0mm)
+      arc [start angle=0, end angle=30, radius=3mm] -- cycle;
+      \draw[red,very thick] (30:1cm) -- +(0,-0.5);
+      \draw[blue,very thick] (30:1cm) ++(0,-0.5) -- (0,0);
+    \end{tikzpicture}
+
+    \begin{tikzpicture}
+      \def\rectanglepath{-- ++(1cm,0cm) -- ++(0cm,1cm) -- ++(-1cm,0cm) -- cycle}
+      \draw (0,0) \rectanglepath;
+      \draw (1.5,0) \rectanglepath;
+    \end{tikzpicture}
+
+    \begin{tikzpicture}
+      \def\rectanglepath{-- +(1cm,0cm) -- +(1cm,1cm) -- +(0cm,1cm) -- cycle}
+      \draw (0,0) \rectanglepath;
+      \draw (1.5,0) \rectanglepath;
+    \end{tikzpicture}
+
+    \tikz \draw (0,0) rectangle +(1,1) (1.5,0) rectangle +(1,1);
+  \end{multicols}
+\end{frame}
+
+%% \begin{frame}
+%%   \frametitle{2.17}%帧标题
+%%   \begin{multicols}{2}
+%%     \begin{tikzpicture}[scale=3]
+%%       \clip (-0.1,-0.2) rectangle (1.1,1.51);
+%%       \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+%%       \draw[->] (-1.5,0) -- (1.5,0);
+%%       \draw[->] (0,-1.5) -- (0,1.5);
+%%       \draw (0,0) circle [radius=1cm];
+%%       \filldraw[fill=green!20,draw=green!50!black] (0,0) -- (3mm,0mm)
+%%       arc [start angle=0, end angle=30, radius=3mm] -- cycle;
+%%       \draw[red,very thick] (30:1cm) -- +(0,-0.5);
+%%       \draw[blue,very thick] (30:1cm) ++(0,-0.5) -- (0,0);
+%%       \path [name path=upward line] (1,0) -- (1,1);
+%%       \path [name path=sloped line] (0,0) -- (30:1.5cm);
+%%       \draw [name intersections={of=upward line and sloped line, by=x}]
+%%             [very thick,orange] (1,0) -- (x);
+%%     \end{tikzpicture}
+
+%%     \begin{tikzpicture}
+%%       \draw [<->] (0,0) arc [start angle=180, end angle=30, radius=10pt];
+%%       \draw [<->] (1,0) -- (1.5cm,10pt) -- (2cm,0pt) -- (2.5cm,10pt);
+%%     \end{tikzpicture}
+
+%%     \begin{tikzpicture}[>=Stealth]
+%%       \draw [->] (0,0) arc [start angle=180, end angle=30, radius=10pt];
+%%       \draw [<<-,very thick] (1,0) -- (1.5cm,10pt) -- (2cm,0pt) -- (2.5cm,10pt);
+%%     \end{tikzpicture}
+%%   \end{multicols}
+%% \end{frame}
+
+\begin{frame}
+  \frametitle{2.18}%帧标题
+  \begin{tikzpicture}[ultra thick]
+    \draw (0,0) -- (0,1);
+    \begin{scope}[thin]
+      \draw (1,0) -- (1,1);
+      \draw (2,0) -- (2,1);
+    \end{scope}
+    \draw (3,0) -- (3,1);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.19}%帧标题
+  \tikz \draw (0,0) -- (0,0.5) [xshift=2pt] (0,0) -- (0,0.5);
+
+  \begin{tikzpicture}[even odd rule,rounded corners=2pt,x=10pt,y=10pt]
+    \filldraw[fill=yellow!80!black] (0,0) rectangle (1,1)
+             [xshift=5pt,yshift=5pt] (0,0) rectangle (1,1)
+             [rotate=30] (-1,-1) rectangle (2,2);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.20}%帧标题
+  \begin{multicols}{2}
+    \foreach \x in {1,2,3} {$x =\x$, }
+
+    \begin{tikzpicture}[scale=3]
+      \clip (-0.1,-0.2) rectangle (1.1,1.51);
+      \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+      \filldraw[fill=green!20,draw=green!50!black] (0,0) -- (3mm,0mm)
+      arc [start angle=0, end angle=30, radius=3mm] -- cycle;
+      \draw[->] (-1.5,0) -- (1.5,0);
+      \draw[->] (0,-1.5) -- (0,1.5);
+      \draw (0,0) circle [radius=1cm];
+      \foreach \x in {-1cm,-0.5cm,1cm}
+      \draw (\x,-1pt) -- (\x,1pt);
+      \foreach \y in {-1cm,-0.5cm,0.5cm,1cm}
+      \draw (-1pt,\y) -- (1pt,\y);
+    \end{tikzpicture}
+
+    \tikz \foreach \x in {1,...,10}
+    \draw (\x,0) circle (0.4cm);
+
+    \begin{tikzpicture}
+      \foreach \x in {1,2,...,5,7,8,...,12}
+      \foreach \y in {1,...,5}
+               {
+                 \draw (\x,\y) +(-.5,-.5) rectangle ++(.5,.5);
+                 \draw (\x,\y) node{\x,\y};
+               }
+    \end{tikzpicture}
+  \end{multicols}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.21-1}%帧标题
+  \begin{multicols}{2}
+    %% \begin{tikzpicture}
+    %%   \draw (0,0) rectangle (2,2);
+    %%   \draw (0.5,0.5) node [fill=yellow!80!black]
+    %%         {Text at \verb!node 1!}
+    %%         -- (1.5,1.5) node {Text at \verb!node 2!};
+    %% \end{tikzpicture}
+
+    \begin{tikzpicture}[scale=3]
+      \clip (-0.6,-0.2) rectangle (0.6,1.51);
+      \draw[step=.5cm,help lines] (-1.4,-1.4) grid (1.4,1.4);
+      \filldraw[fill=green!20,draw=green!50!black] (0,0) -- (3mm,0mm)
+      arc [start angle=0, end angle=30, radius=3mm] -- cycle;
+      \draw[->] (-1.5,0) -- (1.5,0);
+      \draw[->] (0,-1.5) -- (0,1.5);
+      \draw (0,0) circle [radius=1cm];
+      \foreach \x in {-1,-0.5,1}
+      \draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\x$};
+      \foreach \y in {-1,-0.5,0.5,1}
+      \draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\y$};
+    \end{tikzpicture}
+
+    \begin{tikzpicture}[scale=3]
+      \clip (-0.6,-0.2) rectangle (0.6,1.51);
+      \draw[step=.5cm,help lines] (-1.4,-1.4) grid (1.4,1.4);
+      \filldraw[fill=green!20,draw=green!50!black] (0,0) -- (3mm,0mm)
+      arc [start angle=0, end angle=30, radius=3mm] -- cycle;
+      \draw[->] (-1.5,0) -- (1.5,0); \draw[->] (0,-1.5) -- (0,1.5);
+      \draw (0,0) circle [radius=1cm];
+      \foreach \x/\xtext in {-1, -0.5/-\frac{1}{2}, 1}
+      \draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\xtext$};
+      \foreach \y/\ytext in {-1, -0.5/-\frac{1}{2}, 0.5/\frac{1}{2}, 1}
+      \draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\ytext$};
+    \end{tikzpicture}
+  \end{multicols}
+\end{frame}
+
+%% \begin{frame}
+%%   \frametitle{2.21-2}%帧标题
+%%   \begin{tikzpicture}[scale=3]
+%%     \clip (-2,-0.2) rectangle (2,0.8);
+%%     \draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid (1.4,1.4);
+%%     \filldraw[fill=green!20,draw=green!50!black] (0,0) -- (3mm,0mm)
+%%     arc [start angle=0, end angle=30, radius=3mm] -- cycle;
+%%     \draw[->] (-1.5,0) -- (1.5,0) coordinate (x axis);
+%%     \draw[->] (0,-1.5) -- (0,1.5) coordinate (y axis);
+%%     \draw (0,0) circle [radius=1cm];
+%%     \draw[very thick,red]
+%%     (30:1cm) -- node[left=1pt,fill=white] {$\sin \alpha$} (30:1cm |- x axis);
+%%     \draw[very thick,blue]
+%%     (30:1cm |- x axis) -- node[below=2pt,fill=white] {$\cos \alpha$} (0,0);
+%%     \path [name path=upward line] (1,0) -- (1,1);
+%%     \path [name path=sloped line] (0,0) -- (30:1.5cm);
+%%     \draw [name intersections={of=upward line and sloped line, by=t}]
+%%           [very thick,orange] (1,0) -- node [right=1pt,fill=white]
+%%           {$\displaystyle \tan \alpha \color{black}=
+%%             \frac{{\color{red}\sin \alpha}}{\color{blue}\cos \alpha}$} (t);
+%%           \draw (0,0) -- (t);
+%%           \foreach \x/\xtext in {-1, -0.5/-\frac{1}{2}, 1}
+%%           \draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north,fill=white] {$\xtext$};
+%%           \foreach \y/\ytext in {-1, -0.5/-\frac{1}{2}, 0.5/\frac{1}{2}, 1}
+%%           \draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east,fill=white] {$\ytext$};
+%%   \end{tikzpicture}
+
+%%   \begin{tikzpicture}
+%%     \draw (0,0) .. controls (6,1) and (9,1) ..
+%%     node[near start,sloped,above] {near start}
+%%     node {midway}
+%%     node[very near end,sloped,below] {very near end} (12,0);
+%%   \end{tikzpicture}
+%% \end{frame}
+
+%% \begin{frame}
+%%   \frametitle{2.22}%帧标题
+%%   \begin{tikzpicture}[scale=3]
+%%     \coordinate (A) at (1,0);
+%%     \coordinate (B) at (0,0);
+%%     \coordinate (C) at (30:1cm);
+%%     \draw (A) -- (B) -- (C)
+%%     pic [draw=green!50!black, fill=green!20, angle radius=9mm,
+%%       "$\alpha$"] {angle = A--B--C};
+%%   \end{tikzpicture}
+%% \end{frame}
+
+\begin{frame}
+  \frametitle{3.3}%帧标题
+  \begin{tikzpicture}
+    \path ( 0,2) node [shape=circle,draw] {}
+    ( 0,1) node [shape=circle,draw] {}
+    ( 0,0) node [shape=circle,draw] {}
+    ( 1,1) node [shape=rectangle,draw] {}
+    (-1,1) node [shape=rectangle,draw] {};
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    \node at ( 0,2) [circle,draw] {};
+    \node at ( 0,1) [circle,draw] {};
+    \node at ( 0,0) [circle,draw] {};
+    \node at ( 1,1) [rectangle,draw] {};
+    \node at (-1,1) [rectangle,draw] {};
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.5}%帧标题
+  \begin{tikzpicture}[thick]
+    \node at ( 0,2) [circle,draw=blue!50,fill=blue!20] {};
+    \node at ( 0,1) [circle,draw=blue!50,fill=blue!20] {};
+    \node at ( 0,0) [circle,draw=blue!50,fill=blue!20] {};
+    \node at ( 1,1) [rectangle,draw=black!50,fill=black!20] {};
+    \node at (-1,1) [rectangle,draw=black!50,fill=black!20] {};
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    [place/.style={circle,draw=blue!50,fill=blue!20,thick},
+      transition/.style={rectangle,draw=black!50,fill=black!20,thick}]
+    \node at ( 0,2) [place] {};
+    \node at ( 0,1) [place] {};
+    \node at ( 0,0) [place] {};
+    \node at ( 1,1) [transition] {};
+    \node at (-1,1) [transition] {};
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.6}%帧标题
+  \begin{tikzpicture}
+    [inner sep=2mm,
+      place/.style={circle,draw=blue!50,fill=blue!20,thick},
+      transition/.style={rectangle,draw=black!50,fill=black!20,thick}]
+    \node at ( 0,2) [place] {};
+    \node at ( 0,1) [place] {};
+    \node at ( 0,0) [place] {};
+    \node at ( 1,1) [transition] {};
+    \node at (-1,1) [transition] {};
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    [place/.style={circle,draw=blue!50,fill=blue!20,thick,
+        inner sep=0pt,minimum size=6mm},
+      transition/.style={rectangle,draw=black!50,fill=black!20,thick,
+        inner sep=0pt,minimum size=4mm}]
+    \node at ( 0,2) [place] {};
+    \node at ( 0,1) [place] {};
+    \node at ( 0,0) [place] {};
+    \node at ( 1,1) [transition] {};
+    \node at (-1,1) [transition] {};
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.7}%帧标题
+  \begin{tikzpicture}
+    \node (waiting 1) at ( 0,2) [place] {};
+    \node (critical 1) at ( 0,1) [place] {};
+    \node (semaphore) at ( 0,0) [place] {};
+    \node (leave critical) at ( 1,1) [transition] {};
+    \node (enter critical) at (-1,1) [transition] {};
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    \node[place] (waiting 1) at ( 0,2) {};
+    \node[place] (critical 1) at ( 0,1) {};
+    \node[place] (semaphore) at ( 0,0) {};
+    \node[transition] (leave critical) at ( 1,1) {};
+    \node[transition] (enter critical) at (-1,1) {};
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.9}%帧标题
+  \begin{multicols}{2}
+  \begin{tikzpicture}
+    \node[place] (waiting) {};
+    \node[place] (critical) [below=of waiting] {};
+    \node[place] (semaphore) [below=of critical] {};
+    \node[transition] (leave critical) [right=of critical] {};
+    \node[transition] (enter critical) [left=of critical] {};
+    \node [red,above] at (semaphore.north) {$s\le 3$};
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    \node[place] (waiting) {};
+    \node[place] (critical) [below=of waiting] {};
+    \node[place] (semaphore) [below=of critical,label=above:$s\le3$] {};
+    \node[transition] (leave critical) [right=of critical] {};
+    \node[transition] (enter critical) [left=of critical] {};
+  \end{tikzpicture}
+
+  \tikz
+  \node [circle,draw,label=60:$60^\circ$,label=below:$-90^\circ$] {my circle};
+  \end{multicols}
+\end{frame}
+
+%% \begin{frame}
+%%   \frametitle{3.10}%帧标题
+%%   \begin{tikzpicture}
+%%     [bend angle=45,
+%%       pre/.style={<-,shorten <=1pt,>=stealth’,semithick},
+%%       post/.style={->,shorten >=1pt,>=stealth’,semithick}]
+%%     \node[place] (waiting) {};
+%%     \node[place] (critical) [below=of waiting] {};
+%%     \node[place] (semaphore) [below=of critical] {};
+%%     \node[transition] (leave critical) [right=of critical] {}
+%%     edge [pre] (critical)
+%%     edge [post,bend right] (waiting)
+%%     edge [pre, bend left] (semaphore);
+%%     \node[transition] (enter critical) [left=of critical] {}
+%%     edge [post] (critical)
+%%     edge [pre, bend left] (waiting)
+%%     edge [post,bend right] (semaphore);
+%%   \end{tikzpicture}
+%% \end{frame}
+
+\begin{frame}
+  \frametitle{3.11}%帧标题
+  \begin{tikzpicture}[auto,bend right]
+    \node (a) at (0:1) {$0^\circ$};
+    \node (b) at (120:1) {$120^\circ$};
+    \node (c) at (240:1) {$240^\circ$};
+    \draw (a) to node {1} node [swap] {1’} (b)
+    (b) to node {2} node [swap] {2’} (c)
+    (c) to node {3} node [swap] {3’} (a);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3.12}%帧标题
+  \begin{multicols}{2}
+    \begin{tikzpicture}
+      \draw [->,decorate,decoration=snake] (0,0) -- (2,0);
+    \end{tikzpicture}
+
+    \begin{tikzpicture}
+      \draw [->,decorate,
+        decoration={snake,amplitude=.4mm,segment length=2mm,post length=1mm}]
+      (0,0) -- (3,0);
+    \end{tikzpicture}
+
+    \begin{tikzpicture}
+      \draw [->,decorate,
+        decoration={snake,amplitude=.4mm,segment length=2mm,post length=1mm}]
+      (0,0) -- (3,0)
+      node [above,align=center,midway]
+      {
+        replacement of\\
+        the \textcolor{red}{capacity}\\
+        by \textcolor{red}{two places}
+      };
+    \end{tikzpicture}
+
+    \begin{tikzpicture}
+      \draw [->,decorate,
+        decoration={snake,amplitude=.4mm,segment length=2mm,post length=1mm}]
+      (0,0) -- (3,0)
+      node [above,text width=3cm,align=center,midway]
+      {
+        replacement of the \textcolor{red}{capacity} by
+        \textcolor{red}{two places}
+      };
+    \end{tikzpicture}
+  \end{multicols}
+\end{frame}
+
+\begin{frame}
+  \frametitle{4.1.2}%帧标题
+  \begin{tikzpicture}
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (1.25,0.25);
+    \draw[blue] (A) -- (B);
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    \coordinate [label=left:\textcolor{blue}{$A$}] (A) at (0,0);
+    \coordinate [label=right:\textcolor{blue}{$B$}] (B) at (1.25,0.25);
+    \draw[blue] (A) -- (B);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{4.1.3}%帧标题
+  \begin{multicols}{2}
+  \begin{tikzpicture}
+    \coordinate [label=left:$A$] (A) at (0,0);
+    \coordinate [label=right:$B$] (B) at (1.25,0.25);
+    \draw (A) -- (B);
+    \draw (A) let
+    \p1 = ($ (B) - (A) $)
+    in
+    circle ({veclen(\x1,\y1)});
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    \coordinate [label=left:$A$] (A) at (0,0);
+    \coordinate [label=right:$B$] (B) at (1.25,0.25);
+    \draw (A) -- (B);
+    \draw let \p1
+    = ($ (B) - (A) $),
+    \n{radius} = {veclen(\x1,\y1)}
+    in
+    (A) circle (\n{radius})
+    (B) circle (\n{radius});
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    \coordinate [label=left:$A$] (A) at (0,0);
+    \coordinate [label=right:$B$] (B) at (1.25,0.25);
+    \draw (A) -- (B);
+    \node [draw,circle through=(B),label=left:$D$] at (A) {};
+  \end{tikzpicture}
+  \end{multicols}
+\end{frame}
+
+\begin{frame}
+  \frametitle{4.1.4}%帧标题
+  \begin{tikzpicture}
+    \coordinate [label=left:$A$] (A) at (0,0);
+    \coordinate [label=right:$B$] (B) at (1.25,0.25);
+    \draw (A) -- (B);
+    \node (D) [name path=D,draw,circle through=(B),label=left:$D$] at (A) {};
+    \node (E) [name path=E,draw,circle through=(A),label=right:$E$] at (B) {};
+    % Name the coordinates, but do not draw anything:
+    \path [name intersections={of=D and E}];
+    \coordinate [label=above:$C$] (C) at (intersection-1);
+    \draw [red] (A) -- (C);
+    \draw [red] (B) -- (C);
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    \coordinate [label=left:$A$] (A) at (0,0);
+    \coordinate [label=right:$B$] (B) at (1.25,0.25);
+    \draw [name path=A--B] (A) -- (B);
+    \node (D) [name path=D,draw,circle through=(B),label=left:$D$] at (A) {};
+    \node (E) [name path=E,draw,circle through=(A),label=right:$E$] at (B) {};
+    \path [name intersections={of=D and E, by={[label=above:$C$]C, [label=below:$C’$]C’}}];
+    \draw [name path=C--C’,red] (C) -- (C’);
+    \path [name intersections={of=A--B and C--C’,by=F}];
+    \node [fill=red,inner sep=1pt,label=-45:$F$] at (F) {};
+  \end{tikzpicture}
+\end{frame}
+
+%% \begin{frame}
+%%   \frametitle{4.1.5}%帧标题
+%%   \begin{tikzpicture}[thick,help lines/.style={thin,draw=black!50}]
+%%     \def\A{\textcolor{input}{$A$}}
+%%     \def\B{\textcolor{input}{$B$}}
+%%     \def\C{\textcolor{output}{$C$}}
+%%     \def\D{$D$}
+%%     \def\E{$E$}
+%%     \colorlet{input}{blue!80!black}
+%%     \colorlet{triangle}{orange}
+%%     \colorlet{output}{red!70!black}
+%%     \coordinate [label=left:\A] (A) at ($ (0,0) + .1*(rand,rand) $);
+%%     \coordinate [label=right:\B] (B) at ($ (1.25,0.25) + .1*(rand,rand) $);
+%%     \draw [input] (A) -- (B);
+%%     \node [name path=D,help lines,draw,label=left:\D]
+%%     \node [name path=E,help lines,draw,label=right:\E]
+%%     (D) at (A) [circle through=(B)] {};
+%%     (E) at (B) [circle through=(A)] {};
+%%     \path [name intersections={of=D and E,by={[label=above:\C]C}}];
+%%     \draw [output] (A) -- (C) -- (B);
+%%     \foreach \point in {A,B,C}
+%%     \fill [black,opacity=.5] (\point) circle (2pt);
+%%     \begin{pgfonlayer}{background}
+%%       \fill[triangle!80] (A) -- (C) -- (B) -- cycle;
+%%     \end{pgfonlayer}
+%%     \node [below right, text width=10cm,align=justify] at (4,3) {
+%%       \small\textbf{Proposition I}\par
+%%       \emph{To construct an \textcolor{triangle}{equilateral triangle}
+%%         on a given \textcolor{input}{finite straight line}.}
+%%       \par\vskip1em
+%%       Let \A\B\ be the given \textcolor{input}{finite straight line}. \dots
+%%     };
+%%   \end{tikzpicture}
+%% \end{frame}
+
+\begin{frame}
+  \frametitle{4.2.1}%帧标题
+  \begin{tikzpicture}
+    \coordinate [label=left:$A$] (A) at (0,0);
+    \coordinate [label=right:$B$] (B) at (1.25,0.25);
+    \draw (A) -- (B);
+    \node [fill=red,inner sep=1pt,label=below:$X$] (X) at ($ (A)!.5!(B) $) {};
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    \coordinate [label=left:$A$] (A) at (0,0);
+    \coordinate [label=right:$B$] (B) at (1.25,0.25);
+    \draw (A) -- (B);
+    \node [fill=red,inner sep=1pt,label=below:$X$] (X) at ($ (A)!.5!(B) $) {};
+    \node [fill=red,inner sep=1pt,label=above:$D$] (D) at
+    ($ (X) ! {sin(60)*2} ! 90:(B) $) {};
+    \draw (A) -- (D) -- (B);
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    \coordinate [label=left:$A$] (A) at (0,0);
+    \coordinate [label=right:$B$] (B) at (1.25,0.25);
+    \draw (A) -- (B);
+    \node [fill=red,inner sep=1pt,label=above:$D$] (D) at
+    ($ (A) ! .5 ! (B) ! {sin(60)*2} ! 90:(B) $) {};
+    \draw (A) -- (D) -- (B);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{4.2.2}%帧标题
+  \begin{multicols}{2}
+    \begin{tikzpicture}
+      \coordinate [label=left:$A$] (A) at (0,0);
+      \coordinate [label=right:$B$] (B) at (0.75,0.25);
+      \coordinate [label=above:$C$] (C) at (1,1.5);
+      \draw (A) -- (B) -- (C);
+      \coordinate [label=above:$D$] (D) at
+      ($ (A) ! .5 ! (B) ! {sin(60)*2} ! 90:(B) $) {};
+      \node (H) [label=135:$H$,draw,circle through=(C)] at (B) {};
+      \draw (D) -- ($ (D) ! 3.5 ! (B) $) coordinate [label=below:$F$] (F);
+      \draw (D) -- ($ (D) ! 2.5 ! (A) $) coordinate [label=below:$E$] (E);
+    \end{tikzpicture}
+
+    \begin{tikzpicture}
+      \coordinate [label=left:$A$] (A) at (0,0);
+      \coordinate [label=right:$B$] (B) at (0.75,0.25);
+      \coordinate [label=above:$C$] (C) at (1,1.5);
+      \draw (A) -- (B) -- (C);
+      \coordinate [label=above:$D$] (D) at
+      ($ (A) ! .5 ! (B) ! {sin(60)*2} ! 90:(B) $) {};
+      \node (H) [label=135:$H$,draw,circle through=(C)] at (B) {};
+      \path let \p1 = ($ (B) - (C) $) in
+      coordinate [label=left:$G$] (G) at ($ (B) ! veclen(\x1,\y1) ! (F) $);
+      \fill[red,opacity=.5] (G) circle (2pt);
+    \end{tikzpicture}
+
+    \begin{tikzpicture}
+      \coordinate [label=left:$A$] (A) at (0,0);
+      \coordinate [label=right:$B$] (B) at (0.75,0.25);
+      \coordinate [label=above:$C$] (C) at (1,1.5);
+      \draw (A) -- (B) -- (C);
+      \coordinate [label=above:$D$] (D) at
+      ($ (A) ! .5 ! (B) ! {sin(60)*2} ! 90:(B) $) {};
+      \node (H) [name path=H,label=135:$H$,draw,circle through=(C)] at (B) {};
+      \path [name path=B--F] (B) -- (F);
+      \path [name intersections={of=H and B--F,by={[label=left:$G$]G}}];
+      \fill[red,opacity=.5] (G) circle (2pt);
+    \end{tikzpicture}
+  \end{multicols}
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{}%帧标题
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{}%帧标题
+\begin{tikzpicture}
+\path (0cm,0cm) coordinate(O);
+\draw (O) circle(3cm);
+\draw (O)++(0.1cm,-0.8cm) arc(45:315:0.2cm);
+\path ++(-1.5cm,0.5cm) coordinate (P1) ++(3cm,0cm) coordinate (P2);
+\foreach \i in {1,2}{
+\draw (P\i) ellipse(1cm and 0.5cm);
+\fill[black] (P\i) circle (0.5cm);
+\fill[gray] (P\i) ellipse (0.125cm and 0.25cm);
+}
+\begin{scope}
+\clip (O)++(0,-1.8cm) circle (0.7cm);
+\fill[color=gray](-3cm,-3cm) rectangle (2cm,-2cm);
+\end{scope}
+\end{tikzpicture}
+\end{frame}
+
+
+
+\end{document}
+%% 设置分栏
+%% \begin{multicols}{2}
+%% \end{multicols}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% beamertikz.tex ends here

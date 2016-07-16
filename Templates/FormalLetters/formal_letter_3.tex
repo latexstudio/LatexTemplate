@@ -1,0 +1,91 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Letter of Notice
+% LaTeX Template
+% Version 1.0 (23/1/13)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Rashadul Islam (ross08@gmail.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{letter}
+
+\usepackage[a4paper]{geometry} % Use A4 paper margins
+
+\usepackage{color} % Required for color customization
+
+\usepackage{fouriernc} % Use the New Century Schoolbook font, comment this line to use the default LaTeX font or replace it with another
+
+\usepackage{lipsum} % Required for inserting dummy text
+
+\definecolor{Navy}{RGB}{50,90,122} % Define a custom color for the heading box
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	DATE AND FROM ADDRESS
+%----------------------------------------------------------------------------------------
+
+\date{\begin{flushleft}\today\end{flushleft}} % Use todays date and left-align it
+
+\begin{letter}{\large \bfseries Initech Rentals\\ 123 Broadway \\ City, State 12345} % From address or department
+
+%----------------------------------------------------------------------------------------
+%	HEADING BOX
+%----------------------------------------------------------------------------------------
+
+\colorbox{Navy}{ % Creates a highlight behind the text using the previously-defined navy color
+
+\parbox[t]{\linewidth}{ % Creates a box to take up the entire line width
+
+\vspace*{14pt} % Whitespace above the text
+
+\hfill \color{white} \textsc{\huge notice of inspection} % Right-aligned heading text
+
+\vspace*{14pt} % Whitespace below the text
+}}
+
+%----------------------------------------------------------------------------------------
+%	SIGNATURE
+%----------------------------------------------------------------------------------------
+
+\signature{
+John Smith \\ % Your name
+\textbf{Property Manager} \\ % Job title
+\textsc{Initech Rentals} \\ % Company
+\small{E: john@initech.com | M: (000) 111 1111} % Contact information
+}
+
+%----------------------------------------------------------------------------------------
+%	LETTER CONTENT
+%----------------------------------------------------------------------------------------
+
+\opening{Dear Sir or Madam,}
+
+\begin{quotation} % Enclosing the entire letter contents in a quotation gives it a narrow centered appearance
+
+\fontsize{11pt}{15pt}\selectfont % Set a larger font with a larger line spacing for the letter content
+
+\lipsum[4]\vspace{10pt}\lipsum[5] % Dummy text
+
+\end{quotation}
+
+\closing{Sincerely,}
+
+%----------------------------------------------------------------------------------------
+
+\end{letter}
+
+\end{document}

@@ -1,0 +1,71 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                             有中文的记得用XeLaTeX来编译
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,11pt]{ctexart}
+\usepackage{xeCJK}%使用系统中文字体
+\usepackage{graphicx}% 用于图像
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%以下为中英文字体设置%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{times}
+\usepackage{fontspec,xunicode,xltxtra} % XeLaTeX相关字体字库
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SimSun 这是系统的字体名字，要调用系统的字体得知道它的名字，去C盘windows文件夹下Fonts文件夹查看字体，右键单击属性能看到名字，但是名字是小写的（比如看到simsun，名字就是SimSun；simkai就是SimKai……），系统有的字体都能调用。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setCJKmainfont{SimSun}   % 设置默认中文字体
+\setCJKmonofont{SimSun}   % 设置等宽字体
+\setmainfont{Times New Roman} %设置默认英文字体
+%%字体字号名字的重定义（方便快捷使用）
+\newcommand{\sanhao}{\fontsize{16pt}{24pt}\selectfont}      % 三号, 1.5倍行距
+\newcommand{\sihao}{\fontsize{14pt}{21pt}\selectfont}       % 四号, 1.5倍行距
+\newcommand{\xiaosi}{\fontsize{12pt}{18pt}\selectfont}      % 小四, 1.5倍行距
+\newcommand{\wuhao}{\fontsize{10.5pt}{10.5pt}\selectfont}   % 五号, 单倍行距
+\newfontfamily\song{SimSun} %宋体
+\newfontfamily\hei{SimHei} %黑体
+\newfontfamily\roman{Times New Roman}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%以上为中英文字体设置%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%以下是版面控制部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}\geometry{left=2.75cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{indentfirst}             % 首行缩进
+\usepackage[perpage,symbol]{footmisc}% 脚注控制
+\usepackage[sf]{titlesec}            % 控制标题
+\usepackage{titletoc}                % 控制目录
+\titlecontents{section}[0pt]{\addvspace{2pt}\filright}
+              {\contentspush{\thecontentslabel\ }}
+              {}{\titlerule*[8pt]{.}\contentspage}
+                                     % 添加section在目录里的点号
+\usepackage{setspace}                % 调节行间距
+\usepackage{booktabs}                % 用于表格中加下划线
+\usepackage{fancyhdr}                % 页眉页脚
+\usepackage{type1cm}                 % 控制字体大小
+\usepackage{indentfirst}             % 首行缩进
+\usepackage{makeidx}                 % 建立索引
+\usepackage{textcomp}                % 千分号等特殊符号
+%\usepackage{layouts}                 % 打印当前页面格式
+%\usepackage{bbding}                  % 一些特殊符号
+\usepackage{cite}                    % 支持引用
+\setlength{\skip\footins}{0.5cm}     % 脚注与正文的距离
+%%%%%%%%%%%%%%%%%%%%%%%%%%以上是版面控制部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%以下进入正文%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\hei{\sanhao{LATEX模板}}}
+\author{\xiaosi{吴鸿毅}}
+\date{2014年4月30日} %添加时间
+%%以上三个信息会在正文中有 \maketitle 的地方出现
+
+\begin{document}
+
+赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣\\
+赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣
+赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣赵欣
+
+
+\end{document}

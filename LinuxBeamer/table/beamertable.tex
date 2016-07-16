@@ -1,0 +1,309 @@
+%%% beamerpfg.tex --- 
+%% 
+%% Description: 
+%% Author: Hongyi Wu(吴鸿毅)
+%% Email: wuhongyi@qq.com 
+%% Created: 五 10月 24 20:58:05 2014 (+0800)
+%% Last-Updated: 日 3月 15 20:26:34 2015 (+0800)
+%%           By: Hongyi Wu(吴鸿毅)
+%%     Update #: 107
+%% URL: http://wuhongyi.github.io 
+
+\documentclass[presentation]{beamer}
+
+\usepackage{fontspec}
+\setsansfont{WenQuanYi Zen Hei}%Linux下使用文泉驿正黑或其他系统中可用的字体
+\XeTeXlinebreaklocale "zh"  % 表示用中文的断行
+\XeTeXlinebreakskip = 0pt plus 1pt % 多一点调整的空间
+\setlength{\parindent}{2em}%设置缩进为两个大写M的宽度，大约为两个汉字的宽度
+
+\usepackage{graphics}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{beamerthemesplit}
+\usepackage{hyperref}%为PDF文档创建超链接
+\usepackage{amsmath}%数学符号与公式
+\usepackage{amsfonts} %数学符号与字体
+\usepackage{supertabular}
+\usepackage{multirow} %合并表格列
+\usepackage{tabularx} %调节表格宽度
+
+\usetheme{CambridgeUS}%深红色，好看
+
+%%table
+\usepackage{graphicx}
+
+
+\title{吴鸿毅beamer模板}
+\subtitle{Beamer table}
+\author{吴鸿毅}
+\institute{哈尔滨工程大学 核科学与技术学院}
+\date{\today}
+\logo{\includegraphics[height=1cm, width=1cm]{logo.jpeg}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}
+\frametitle{目录}
+    \tableofcontents     %你也可以插入选项 [pausesections]
+\end{frame}
+
+\section{beamer table}
+\subsection{table}
+
+\begin{frame}
+  \frametitle{生成固定宽度的表格}
+\begin{tabular*}{5cm}{@{\extracolsep{\fill}}lllr}
+\hline
+1 & 2 & 3 & 4 \\
+21 & 22 & 23 & 24 \\
+\hline
+\end{tabular*}
+
+这种方法的一个缺点是列之间如果加入分隔符,则列之间的空隙是放在下一列的左边而不是在两列之间平均分配。我们来看上面的例子加入分隔符后的样子
+
+\begin{tabular*}{5cm}
+{@{\extracolsep{\fill}}|l|l|l|r|}
+\hline
+1 & 2 & 3 & 4 \\
+21 & 22 & 23 & 24 \\
+\hline
+\end{tabular*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{tabular 环境插入表格}
+\begin{tabular}{|l|c|r|}
+\hline
+左列 & 中列 & 右列 \\
+\hline
+第二行 & 第二行 & 第二行 \\
+\hline
+第三行 & 第三行 & 第三行 \\
+\hline
+第四行 & 第四行 & 第四行 \\
+\hline
+\end{tabular}
+
+首先,tabular 环境的参数 |l|c|r| 指明了各列的对齐方式,l、c 和 r 分别表示左对齐、居中对齐和右对齐。中间的竖线 | 指明各列之间有竖线分隔,如果在某些地方不需要竖线,去掉相应位置的 | 即可。
+
+表格各行的元素之间用 \& 号分隔,两行内容用 $\backslash$$\backslash$ 分隔。$\backslash$hline 表示两行之间的横线;你可以用连续两个 $\backslash$hline 得到双横线,或者去掉 $\backslash$hline 以不显示该横线。
+
+如果需要在某个单元格中填写多行内容,不能直接用 $\backslash$$\backslash$ 或 $\backslash$newline 命令,而应该将它们放在一个盒子里面(比如 $\backslash$parbox 盒子)。
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{跨列表格}%帧标题
+  %\framesubtitle{}%帧副题
+复杂的表格经常需要跨行和跨列,在 tabular 环境中,我们可以用命令 $\backslash$multicolumn 得到跨列表格,而跨行表格需要使用 multirow 宏包。
+\begin{tabular}{|l|c|r|}
+\hline
+左列 & 中列 & 右列 \\
+\hline
+第二行 & 第二行 & 第二行 \\
+\hline
+\multicolumn{2}{|c|}{跨越2011} & 第三行 \\
+\hline
+第四行 & 第四行 & 第四行 \\
+\hline
+\end{tabular}
+
+上面的 $\backslash$multicolumn 命令的第一个参数指明要横跨的列数,第二个参数指明对齐和边框线,第三个参数指明该单元格的内容。
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{浮动表格}%帧标题
+  %\framesubtitle{}%帧副题
+  表格是在 tabular 环境对应的位置排版出来的。如果表格高度大于当前页剩余高度,表格就会被放置到下一页中,造成这一页下部留出很大空白。大部分时候我们并不需要严格限定表格出现的位置,而只要求表格在该段正文的附近出现即可。此时,我们可以用 table 浮动环境来达到自动调整位置的效果。
+
+  \begin{table}[htbp!]
+  \centering
+  \begin{tabular}{|l|c|r|c|}
+    \hline
+    第一行 & 第一行 & 第一行 & 第一行 \\
+    \hline
+    第二行 & 第二行 & 第二行 & 第二行 \\
+    \hline
+    第三行 & 第三行 & 第三行 & 第三行\\
+    \hline
+    第四行 & 第四行 & 第四行 & 第四行 \\
+    \hline
+  \end{tabular}
+  \end{table}
+
+其中的可选参数里,h(here,当前位置)、t(top,页面顶部)、b(bottom,页面底部)、p(page,单独一页)表明允许将表格放置在哪些位置,而 ! 表示不管某些浮动的限制。用 table 浮动环境,还可以用 $\backslash$caption命令指明表格的名称,并得到表格的自动编号。
+
+\end{frame}
+
+
+
+\begin{frame}[allowframebreaks]
+  \frametitle{无框线表格环境 tabbing}%帧标题
+它没有表格框线绘制命令，列与列之间采用空格分隔，列数据处于左右模式中，不能自动换行。
+在 tabbing 表格环境中可使用以下多种制表命令。
+
+$\backslash$=  列宽命令，表示两列之间以此为界，第一行的各列必须用其确定列宽度，一列的宽度是由其第 1 行数据的自然宽度加所设水平空白宽度；该命令还可用在其它行来设置新的列。
+
+$\backslash$$\backslash$ 换行命令，表示当前行结束，开始心的一行。最后一行可省略此命令。可采用如$\backslash$$\backslash$[5pt]的方法加宽与下一行的距离。
+
+$\backslash$>  分列命令，用于分隔两列数据。
+
+$\backslash$+  右移命令，表示将其后各行数据右移动一列。
+
+$\backslash$-  左移命令，表示将其后各行数据向左移动一列，相当于取消之前设置的一个 $\backslash$+ 的作用。
+
+$\backslash$<  用于一行之首，表示该行数据向左移动一列，相当于取消之前设置的一个 $\backslash$+ 在该行的作用。
+
+$\backslash$‘  可用于一行中最后一列数据之前的任何位置，它可将该行最后一列数据移至版心右侧边。
+
+$\backslash$’  该命令可以插在某一数据之中，将其一分为二，左半部置于该列左侧的左边，右半部置于右边；左半部与该列左侧之间的距离可以用 $\backslash$tabbingsep 长度数据命令来设定，其默认值为 0.5em。
+
+$\backslash$a  在 LATEX 中，命令 $\backslash$=、$\backslash$‘ 和 $\backslash$’ 是用于生成重音字符的，例如 $\backslash$=o、$\backslash$‘o 和 $\backslash$'o ,生成 \=o 、 \'o 和 \'o ；tabbing 环境重新定义了这三个命令，如果在表格数据中有这三种重音符号，可改用 $\backslash$a=、$\backslash$a’ 和 $\backslash$a’ 来生成。（有误）
+
+$\backslash$kill  取消命令，它用于取代换行命令 $\backslash$$\backslash$ ，表示取消该行，即该行的内容不被排版出来，但其中的 $\backslash$= 、 $\backslash$+ 、 或$\backslash$- 命令和列宽度设置仍然有效。
+
+$\backslash$pushtabs 堆栈命令，存储当前各列宽度的设置。
+
+$\backslash$poptabs 弹出命令，恢复最后一个 $\backslash$pushtabs 命令所存储的各列宽度设置。
+
+下面是使用 tabbing 环境编排一个四列无框线表格：
+\begin{tabbing}
+项目 \hspace{4mm} \= {\sf 802.11b} \hspace{4mm} \= 蓝牙 \hspace{10mm} \= {\sf HomeRF}\\
+频率 \> 2.4GHz \> 2.4GHz \> 2.4GHz\\
+技术 \> DSSS \> FHSS \> FHSS\\
+\end{tabbing}
+
+下面是左移和右移命令在 tabbing 表格环境中的应用：
+\begin{tabbing}
+夸克quark \hspace{5mm}\= 介子meson\\
+\> 重子baryon \hspace{5mm}\= 核子nucleon \+\+\\
+超子hyperon \-\\
+轻子 \> 强子 \\
+\< 量子 \> 光子 \> 胶子\\
+引力子 \> 重子 \\
+\end{tabbing}
+
+在本例中 $\backslash$+$\backslash$+ 表示将其后各行的数据右移两列。
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{四周带边线表格 tabular}%帧标题
+  %\framesubtitle{}%帧副题
+\
+\begin{tabular}{|l|c|r|}\hline
+\multicolumn{3}{|c|}{Sample Tabular}\\\hline
+col head & col head & col head\\\hline
+Left & centered & right\\\cline{1-2}
+aligned & items & aligned\\\cline{2-3}
+items & items & items\\\cline{1-2}
+Left items & centered & right\\\hline
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{小数点对齐 tabular}%帧标题
+  %\framesubtitle{}%帧副题
+  \begin{tabular}{c r @{.} l}\hline
+    太阳系中的行星 & \multicolumn{2}{c}{赤道半径km}\\\hline
+    水星 & 2 & 44\\
+    金星 & 6 & 1\\
+    地球 & 6378 & 142\\\hline
+  \end{tabular}
+
+在本例中，用 @ 表达式：@\{.\}，将小数点插在数列与小数之间，同时将这两列之间的空白删除；用 $\backslash$multicolumn 命令将表格第 1 行的第 2 列和第 3 列合并为一列，并将该列数据居中，成为整数列和小数列共有的列标题。
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{}%帧标题
+  %\framesubtitle{}%帧副题
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{}%帧标题
+  %\framesubtitle{}%帧副题
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+  \frametitle{本页标题}
+
+\begin{tabular}{|c|c|c|c|c|}%表格合并行列
+\hline \hline 
+lable 1-1 & label 1-2 & label 1-3 & label 1 -4 & label 1-5\\\hline
+label 2-1 & label 2-2 & label 3-3 & label 4-4 & label 5-5 \\\hline
+\multirow{2}{*}{Multi-Row} & \multicolumn{2}{|c|}{Multi-Column} & \multicolumn{2}{|c|}{\multirow{2}{*}{Multi-Row and Col}} \\\cline{2-3} 
+& column-1 & column-2 & \multicolumn{2}{|c|}{}\\%补偿上面的两列合并的那一行
+\hline
+\end{tabular}
+
+\end{frame}
+
+
+
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%
+\begin{frame}[]
+\begin{frame}
+  \frametitle{}%帧标题
+  %\framesubtitle{}%帧副题
+
+\end{frame}
+其中可选参数有下列选项：
+allowframebreaks 当帧环境中的内容过多，超出一幅幻灯片所能显示的范围时，超出部分就看不到，如果使用该选项，帧环境就能自动换幅，即自动增加一幅以放置超出的内容。
+allowdisplaybreaks 允许多行公式中间换幅，该选项必须与allowframebreaks选项同时使用，否则无效。
+t 每幅幻灯片中的内容顶对齐。
+c 默认值，即每幅幻灯片中的内容垂直居中。帧环境的t、c选项优先于beamer的t、c选项。
+b 每幅幻灯片中的内容底对齐。
+fragile 它告诉beamer帧环境中的内容是“脆弱”的，不能按通常的意义来编译，例如在使用抄录环境verbatim时就要添加此选项。
+containsverbatim 使用抄录环境verbatim或\verb命令时要添加此选项。
+squeeze 压缩文本行之间的行距。
+shrink 帧环境中的内容超出一幅幻灯片所能显示的范围时，超出部分就看不到了，如果使用该选项，可自动缩小帧环境中所有内容的字体尺寸，并压缩行距，使帧环境中的全部内容都能够放在一幅幻灯片里。使用本选项时，squeeze选项也就自动被启用了。
+plain 取消各种导航条和微标（logo），以便创建其他样式的导航条或是显示一张满幅的插图等。微标是用\logo命令生成的插图，通常是校徽或是会徽。
+%%%%%%%%%%%%%%%%%%
+\beamersetaveragebackground{black!10}%设置帧背景德文颜色
+
+\alert{}%将其中的文本字体改为红色，它的作用类似于\emph命令，用于强调某一词语。
+
+
+\begin{tabular}{|c|c|c|c|c|}%表格合并行列
+\hline \hline 
+lable 1-1 & label 1-2 & label 1-3 & label 1 -4 & label 1-5\\\hline
+label 2-1 & label 2-2 & label 3-3 & label 4-4 & label 5-5 \\\hline
+\multirow{2}{*}{Multi-Row} & \multicolumn{2}{|c|}{Multi-Column} & \multicolumn{2}{|c|}{\multirow{2}{*}{Multi-Row and Col}} \\\cline{2-3} 
+& column-1 & column-2 & \multicolumn{2}{|c|}{}\\%补偿上面的两列合并的那一行
+\hline
+\end{tabular}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% beamerpfg.tex ends here

@@ -1,0 +1,248 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{color,xcolor} % 支持彩色文本、底色、文本框等
+\usepackage{multicol,multirow} %分栏
+\usepackage{balance}%双栏文档底部对齐
+
+\usepackage{graphicx}                % 用于图像
+%\begin{figure}[!htb]
+%  \centering
+%  \includegraphics[height=85pt]{xemod_1.jpg}
+%\end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%以下是版面控制部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{indentfirst}             % 首行缩进
+\usepackage{setspace}                % 调节行间距  
+\usepackage{booktabs}                % 用于表格中加下划线，cmidrule(r){2-2}
+
+\iffalse
+\usepackage[a4paper,left=1.5cm,right=1.5cm, 
+top=2.5cm,bottom=2cm,textwidth=14cm,textheight=20.3cm,
+includehead,headheight=15pt,headsep=25pt]{geometry}
+\fi
+\usepackage{geometry} 
+\geometry{paperwidth=21cm,paperheight=29.5cm}
+\geometry{textwidth=17cm,lines=26} 
+\geometry{left=2cm,right=2cm, top=1.5cm,bottom=2cm} 
+\geometry{includehead,headheight=5pt,headsep=15pt}
+%\usepackage[top=1in,bottom=1in,left=1.2in,right=1in]{geometry}
+\usepackage[pagestyles]{titlesec}
+\titleformat{\section}{\centering\huge\bfseries}{\S\,\thesection}{1em}{}
+\titleformat{\subsection}{\LARGE\bfseries}{\S\,\thesubsection}{1em}{}
+
+% 页眉页脚方式一：
+\newpagestyle{main}{% 页眉页脚
+\sethead{\small\S\,\thesection\quad\sectiontitle}{}{$\cdot$~\thepage~$\cdot$}%页眉
+\setfoot{\kai 哈尔滨工程大学}{\kai 核科学与技术学院}{\kai 吴鸿毅}%页脚
+\footrule%画页脚线
+\headrule%画页眉线
+}
+\pagestyle{main}
+
+% 页眉页脚方式二：
+%\usepackage{fancyhdr}                
+%\pagestyle{fancy}
+%\lhead{\small\S\,\thesection\quad\sectiontitle}
+%\chead{}
+%\rhead{$\cdot$~\thepage~$\cdot$}
+%\lfoot{\kai 哈尔滨工程大学}
+%\cfoot{\kai 核科学与技术学院}
+%\rfoot{\kai 吴鸿毅}
+%%%%%%%%%%%%%%%%%%%%%%%%%%以上是版面控制部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% espace inter graphe geshi %设置行间距
+%\usepackage{setspace}
+%\singlespacing % interligne normal (par défaut)
+%\onehalfspacing % interligne×1,5
+%\doublespacing % interligne×2
+%\setstretch{baselinestretch}{} % interligne×
+%\begin{singlespace} % interligne normal (par défaut)
+%  ...
+%\end{singlespace}
+%\begin{onehalfspace} % interligne×1,5
+%  ...
+%\end{onehalfspace}
+%\begin{doublespace} % interligne×2
+%...
+%\end{doublespace}
+%\begin{spacing}{2.5} % interligne×2.5
+%...
+%\end{spacing}
+
+%对齐方式
+%一行对齐：\leftline{左对齐} \centerline{居中} \rightline{右对齐}
+%多行或者段落对齐：
+%左对齐 \begin{flushleft}...\end{flushleft}
+%居中 \begin{center}...\end{center}
+%右对齐 \begin{flushright}...\end{flushright}
+
+%\thispagestyle{empty}%该页无页眉页脚
+%\newpage %另起一页
+%\tableofcontents % 插入目录
+%\pagenumbering{arabic}%自此处页码开始计数  
+%%%%%%%%%%%%%%%%%%%%%%%%%以下为中英文字体设置%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fontspec} % XeLaTeX相关字体字库
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+
+\newcommand{\yihao}{\fontsize{26pt}{26pt}\selectfont} % 一号, 单倍行距
+\newcommand{\erhao}{\fontsize{22pt}{22pt}\selectfont} % 二号, 单倍行距
+\newcommand{\xiaoer}{\fontsize{18pt}{18pt}\selectfont} % 小二, 单倍行距
+\newcommand{\sanhao}{\fontsize{16pt}{16pt}\selectfont} % 三号, 单倍行距
+\newcommand{\xiaosan}{\fontsize{15pt}{15pt}\selectfont} % 小三, 单倍行距
+\newcommand{\sihao}{\fontsize{14pt}{14pt}\selectfont} % 四号, 单倍行距
+\newcommand{\banxiaosi}{\fontsize{13pt}{13pt}\selectfont} % 半小四, 单倍行距
+\newcommand{\xiaosi}{\fontsize{12pt}{12pt}\selectfont} % 小四, 单倍行距
+\newcommand{\dawuhao}{\fontsize{11.5pt}{11.5pt}\selectfont} % 大五号, 单倍行距
+\newcommand{\wuhao}{\fontsize{10.5pt}{10.5pt}\selectfont} % 五号, 单倍行距
+\newcommand{\xiaowu}{\fontsize{9.5pt}{9.5pt}\selectfont} % 小五号, 单倍行距
+\newcommand{\banbanxiaosi}{\fontsize{12pt}{12pt}\selectfont}% 半半小四, 单倍行距
+\setmainfont[BoldFont=SimHei]{simsun.ttc} %设置默认字体。
+\newfontfamily\song{simsun.ttc}
+\newfontfamily\fangsong{simfang.ttf}
+\newfontfamily\hei{simhei.ttf}
+\newfontfamily\kai{simkai.ttf}
+\newfontfamily\roman{Times New Roman}
+%%%%%%%%%%%%%%%%%%%%%%%%%以上为中英文字体设置%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%以下是一些命令或环境的重定义或自定义%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{example}{例} % 整体编号
+\newtheorem{algorithm}{算法}
+\newtheorem{theorem}{定理}[section] % 按 section 编号
+\newtheorem{definition}{定义}
+\newtheorem{axiom}{公理}
+\newtheorem{property}{性质}
+\newtheorem{proposition}{命题}
+\newtheorem{lemma}{引理}
+\newtheorem{corollary}{推论}
+\newtheorem{remark}{注解}
+\newtheorem{condition}{条件}
+\newtheorem{conclusion}{结论}
+\newtheorem{assumption}{假设}
+\renewcommand{\contentsname}{\center\hei\sanhao 目录} % 将Contents改为目录
+\renewcommand{\abstractname}{\textbf\xiaosi\song 摘要} % 将Abstract改为摘要
+\renewcommand{\refname}{参考文献} % 将References改为参考文献
+\renewcommand{\indexname}{索引}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\renewcommand{\appendixname}{附录}
+%\renewcommand{\proofname}{证明}
+\renewcommand{\algorithm}{算法}
+
+%\newtheorem{property}{问题}
+%\newtheorem{proposition}{猜测}
+%\renewcommand{\contentsname}{\center\hei{\sanhao 目录}}
+%\renewcommand{\refname}{\textbf{\xiaosi{\song 参考文献}}}      % 将References改为参考文献
+%\newenvironment{chabstract}{\hei{\xiaosi摘要：}}           %定义中文摘要
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%以上是一些命令或环境的重定义或自定义%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Using Code%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\definecolor{keywordcolor}{rgb}{0.8,0.1,0.5}
+\usepackage{listings}
+\lstset{
+	language=C++, %用于设置语言为C++
+	numbers=left, %设置行号位置
+%     numberstyle=\tiny, %设置行号大小
+	frame=single, %设置边框格式
+    escapeinside=``, %逃逸字符(1左面的键)，用于显示中文
+	keywordstyle=\color{red} \bfseries, %设置关键词为蓝色，需要引xcolor宏包
+	identifierstyle=\color{blue},
+	basicstyle=\ttfamily, 
+	commentstyle=\color{green} \textit,
+	stringstyle=\ttfamily, 
+	numberstyle=\color{magenta},
+	breaklines, %自动折行
+     extendedchars=false, %解决代码跨页时，章节标题，页眉等汉字不显示的问题
+	xleftmargin=2em,xrightmargin=2em, aboveskip=1em, %设置边距
+     tabsize=4, %设置tab空格数
+	showstringspaces=false,
+%	frame=shadowbox, %边框
+	captionpos=b,
+}
+%\begin{lstlisting}
+%...
+%\end{lstlisting}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Using Code%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\title{\yihao\kai 吴鸿毅 \LaTeX~样板}
+\author{\sanhao 吴鸿毅\\
+\sanhao wuhongyi@qq.com} 
+\date{\sanhao 2014年5月2日 于哈尔滨}
+
+\usepackage{hyperref} %保证它是文档导言区的最后一行命令，超链接 
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\newpage
+%\tableofcontents 
+%插入目录,当前设置下导致冲突，无法添加目录！！！
+%赵欣的可以插入目录，应该是与插入lstlisting有关。网上没看到解决方案。
+\newpage
+
+\section{\kai 一级标题}
+\subsection{\kai 二级标题}
+\subsubsection{\kai\sihao 三级标题}
+电饭锅好地方gchfg {\roman gchfg}\\
+发给第三方地方个电视里见过速度独守空房低空飞过\\
+对法国进口离开的价格大范甘迪地方个豆腐干的个的
+
+\begin{onehalfspace} % interligne×1,5
+这是一点五倍行距，这是一点五倍行距，这是一点五倍行距，这是一点五倍行距，\\
+这是一点五倍行距，这是一点五倍行距，这是一点五倍行距，这是一点五倍行距，
+\end{onehalfspace}
+\doublespacing 这是双倍行距，这是双倍行距，这是双倍行距，这是双倍行距，这是双倍行距，\\
+这是双倍行距，这是双倍行距，这是双倍行距，这是双倍行距，这是双倍行距，\\
+
+$\sum_{k=0}^{+\infty}2^{-k}=2$.
+
+\begin{lstlisting}
+/*
+**ac_automation: multipattern match algorithm
+*input: n patterns and string
+*output: all the patterns that appear in the string
+*/
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int main(void)
+{
+       return 0;
+       //
+}
+\end{lstlisting}
+
+$\lambda,\xi,\pi,\mu,\Phi,\Omega$
+$a_{1}$ \qquad $x^{2}$ \qquad
+$e^{-\alpha t}$ \qquad
+$a^{3}_{ij}$\\
+$e^{x^2} \neq {e^x}^2$$\sqrt{x}$ \qquad
+$\sqrt{ x^{2}+\sqrt{y} }$
+\qquad $\sqrt[3]{2}$\\[3pt]
+$\surd[x^2 + y^2]$
+\[\lim_{x \rightarrow 0}
+\frac{\sin x}{x}=1\]
+
+\[\lim_{x \to 0}\sum
+\frac{\sin x}{x}=1\]
+
+\begin{multicols}{2}
+\section{\kai{引言}}
+%\indent
+\song\wuhao 的规划仍同行低功耗的开发几个号多少但考虑非结构化打了快放假过后都快放假过后上来看到非结构化大立科技风格化打开了工商克里斯多夫规划塑料袋开个会了多少开发规划打开了韩国
+%
+\section{\kai{第X章}}
+%\indent
+\song\wuhao 近年来，汽车排放被视为全球变暖主要诱因之一。一方面，汽车的工作效率越高，其向大气中排放的热量较少；另一方面，目前矿物燃料资源几近枯竭。这两个原因促使研究人员试图寻找能够同时降低燃油消耗和提高机械效率的方法。CVT便是解决方法之一。CVT动力总成能使油耗减少10\%。理论上，CVT作为动力总成可以有效防止冲击力对发动机的作用，使其稳定运行在最佳工况下，从而使油耗减少，疲劳寿命增加。CVT已在用拖拉机，铣床，飞机等上广泛使用，它在电动汽车上发挥作用尤其显著。近年来，汽车排放被视为全球变暖主要诱因之一。一方面，汽车的工作效率越高，其向大气中排放的热量较少；另一方面，目前矿物燃料资源几近枯竭。这两个原因促使研究人员试图寻找能够同时降低燃油消耗和提高机械效率的方法。CVT便是解决方法之一。CVT动力总成能使油耗减少10\%。理论上，CVT作为动力总成可以有效防止冲击力对发动机的作用，使其稳定运行在最佳工况下，从而使油耗减少，疲劳寿命增加。CVT已在用拖拉机，铣床，飞机等上广泛使用，它在电动汽车上发挥作用尤其显著。
+\begin{center}
+  \includegraphics[width=0.4\textwidth]{tupianceshi.jpg}
+\end{center}
+\end{multicols}
+\section{\kai{第X+1章}}
+%\indent
+\song\wuhao 近年来，汽车排放被视为全球变暖主要诱因之一。一方面，汽车的工作效率越高，其向大气中排放的热量较少；另一方面，目前矿物燃料资源几近枯竭。这两个原因促使研究人员试图寻找能够同时降低燃油消耗和提高机械效率的方法。CVT便是解决方法之一。CVT动力总成能使油耗减少10\%。理论上，CVT作为动力总成可以有效防止冲击力对发动机的作用，使其稳定运行在最佳工况下，从而使油耗减少，疲劳寿命增加。CVT已在用拖拉机，铣床，飞机等上广泛使用，它在电动汽车上发挥作用尤其显著。近年来，汽车排放被视为全球变暖主要诱因之一。一方面，汽车的工作效率越高，其向大气中排放的热量较少；另一方面，目前矿物燃料资源几近枯竭。这两个原因促使研究人员试图寻找能够同时降低燃油消耗和提高机械效率的方法。CVT便是解决方法之一。CVT动力总成能使油耗减少10\%。理论上，CVT作为动力总成可以有效防止冲击力对发动机的作用，使其稳定运行在最佳工况下，从而使油耗减少，疲劳寿命增加。CVT已在用拖拉机，铣床，飞机等上广泛使用，它在电动汽车上发挥作用尤其显著。
+
+
+\end{document}
+

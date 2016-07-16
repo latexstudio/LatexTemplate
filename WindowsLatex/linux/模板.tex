@@ -1,0 +1,220 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                             有中文的记得用XeLaTeX来编译
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\documentclass[a4paper,11pt]{ctexart}
+\documentclass[a4paper,11pt]{article}
+\usepackage{graphicx}% 用于图像
+\usepackage{amsmath}
+\usepackage{amsbsy,amscd,amsgen,amsmath,amsopn,amsxtra,amsthm,upref}
+%%%%%%%%%%%%%%%%%%%%%%%%%以下为中英文字体设置%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{times}
+\usepackage{fontspec} % XeLaTeX相关字体字库,xunicode,xltxtra
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newfontfamily\kai{AR PL UKai CN}%字体重命名，方便使用
+\newfontfamily\ming{AR PL UMing CN}
+\newfontfamily\hei{WenQuanYi Zen Hei}
+\setmainfont{WenQuanYi Zen Hei}%文档正文默认字体,设置衬线字体
+%\setmainfont{Times New Roman} %设置默认英文字体
+%%字体字号名字的重定义（方便快捷使用）
+\newcommand{\sanhao}{\fontsize{16pt}{24pt}\selectfont}      % 三号, 1.5倍行距
+\newcommand{\sihao}{\fontsize{14pt}{21pt}\selectfont}       % 四号, 1.5倍行距
+\newcommand{\xiaosi}{\fontsize{12pt}{18pt}\selectfont}      % 小四, 1.5倍行距
+\newcommand{\wuhao}{\fontsize{10.5pt}{10.5pt}\selectfont}   % 五号, 单倍行距
+%\newfontfamily\song{SimSun} %宋体
+%\newfontfamily\hei{SimHei} %黑体
+%\newfontfamily\roman{Times New Roman}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%以上为中英文字体设置%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%以下是版面控制部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}\geometry{left=2.75cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{indentfirst}             % 首行缩进
+\usepackage[perpage,symbol]{footmisc}% 脚注控制
+\usepackage[sf]{titlesec}            % 控制标题
+\usepackage{titletoc}                % 控制目录
+%\titlecontents{section}[0pt]{\addvspace{2pt}\filright}
+%              {\contentspush{\thecontentslabel\ }}
+%              {}{\titlerule*[8pt]{.}\contentspage}
+%                                     % 添加section在目录里的点号
+\usepackage{setspace}                % 调节行间距   
+\usepackage{booktabs}                % 用于表格中加下划线
+\usepackage{fancyhdr}                % 页眉页脚
+\usepackage{type1cm}                 % 控制字体大小
+\usepackage{indentfirst}             % 首行缩进
+\usepackage{makeidx}                 % 建立索引
+\usepackage{textcomp}                % 千分号等特殊符号
+%\usepackage{layouts}                 % 打印当前页面格式
+\usepackage{cite}                    % 支持引用
+\setlength{\skip\footins}{0.5cm}     % 脚注与正文的距离
+%%%%%%%%%%%%%%%%%%%%%%%%%%以上是版面控制部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%以下进入正文%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\sanhao{LATEX模板}}
+\author{\xiaosi{吴鸿毅}} 
+\date{2014年4月30日} %添加时间
+%%以上三个信息会在正文中有 \maketitle 的地方出现
+
+\begin{document}
+\maketitle
+\begin{titlepage}   %封面
+
+\begin{spacing}{1.8}    %行间距增为1.8倍
+\begin{center}
+\begin{tabular}{rc}
+\sanhao 论文题目：& \sanhao 暂时还不知道\\ \cmidrule(r){2-2} %第二格加下划线
+\sanhao 学生姓名：& \sanhao 吴 \qquad 鸿 \qquad 毅\\ \cmidrule(r){2-2}
+\sanhao 学\ \ \ \quad 号：& \sanhao 2011151416\\ \cmidrule(r){2-2}
+\sanhao 专\ \ \ \quad 业： & \sanhao 核~工~程~与~核~技~术 \\ \cmidrule(r){2-2}
+\sanhao 指导老师： & \sanhao 无 \quad 名 \quad 氏\\ \cmidrule(r){2-2}
+\sanhao 学\ \ \ \quad 院： & \sanhao 核~科~学~与~技~术~学~院\\ \cmidrule(r){2-2}
+\end{tabular}
+\end{center}
+\end{spacing}
+\centerline{\normalsize 哈尔滨工程大学}
+\centerline{\sanhao 2014年4月30日}
+\end{titlepage}
+\thispagestyle{empty}% 首页无页眉页脚
+\newpage%另起一页
+
+\begin{spacing}{2}
+\tableofcontents                    % 插入目录，需要编译两次才能出现
+\end{spacing}
+\thispagestyle{empty}               % 首页无页眉页脚
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%以下是中文摘要、关键词%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage %双面打印(openright) 用\cleardoublepage，刷新页面信息，为了添加目录章节后页码不乱
+\pagenumbering{arabic} %自此处页码开始计数       
+\addcontentsline{toc}{section}{\textbf{\xiaosi{摘要}}} %创建虚拟章节，便于将摘要部分添加到目录
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%以下为论文引言部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\textbf{\xiaosi{\hei 引言}}}
+
+{\xiaosi{\ming{在一般的本科生泛函分析教材中， $\cdots$ 如~$L^p(\mathbf{E})$~和~$l^p$~}}}\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%以上为论文引言部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+{\xiaosi{\ming{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%以下为论文第二部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\textbf{\xiaosi{\hei 数列空间和函数空间的定义}}}
+
+以下给出六种典型的数列空间和函数空间的定义，文字叙述和符号表示依照文献\cite{cankaowenxiao111}.\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%以上为论文正文第二部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%以下为论文正文第三部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\textbf{\xiaosi\hei 六类空间各自的性质}}
+
+{\subsection{\textbf{\xiaosi\hei{$l^p$和$L^p(\mathbf{E})$}}}}
+$l^p$~和~$L^p(\mathbf{E})$~都可分.
+$\cdots$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%以上为论文正文第三部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%以下为论文正文第四部分%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\section{\textbf{\xiaosi\hei 六种空间之间的一些联系}}
+
+
+
+文献\cite{cankao4}给出了~$1\leq p\leq 2$~时的~$L^p(\mathbf{E})$~上的~Fourier~变换的构造过程，并指出当
+~$p>2$~时在广义函数的意义下~$L^p(\mathbf{E})$~仍可导入~Fourier~变换.\ 问题在于~$p\neq 2$~时~Fourier
+~变换能否构成~$L^p(\mathbf{E})$~与~$l^p$~之间的保范同构
+
+\begin{equation}
+a^x+y \neq a^{x+y}
+\end{equation}
+$\lambda,\xi,\pi,\mu,\Phi,\Omega$
+
+$a_{1}$ \qquad $x^{2}$ \qquad
+$e^{-\alpha t}$ \qquad
+$a^{3}_{ij}$\\
+$e^{x^2} \neq {e^x}^2$
+
+$\sqrt{x}$ \qquad
+$\sqrt{ x^{2}+\sqrt{y} }$
+\qquad $\sqrt[3]{2}$\\[3pt]
+$\surd[x^2 + y^2]$
+
+$\overline{m+n}$ \qquad
+$\underline{m+n}$
+
+\[\underbrace{ a+b+ \cdots +z }_{26}\]
+
+\begin{displaymath}
+y=x^{2}\qquad y’=2x\qquad y’’=2
+\end{displaymath}
+
+\begin{displaymath}
+\vec a\quad\overrightarrow{AB}
+\end{displaymath}
+
+\begin{displaymath}
+v = {\sigma}_1 \cdot {\sigma}_2
+{\tau}_1 \cdot {\tau}_2
+\end{displaymath}
+
+%\arccos \cos
+%\csc \exp
+%\ker
+%\limsup \min
+%\arcsin \cosh \deg \gcd \lg \ln \Pr
+%\arctan \cot \det \hom \lim \log \sec
+%\arg \coth \dim \inf \liminf \max \sin
+%\sinh \sup \tan \tanh 
+
+\[\lim_{x \rightarrow 0}
+\frac{\sin x}{x}=1\]
+%\rightarrow
+ $X \neq \sqrt{Y}$   $\hat{a}\check{a}\dot{a}\tilde{a}\ddot{a}\acute{a}\breve{a}$
+ $111
+\alpha
+\beta
+\gamma
+\delta
+\epsilon
+\varepsilon
+\zeta
+\eta
+\theta
+\vartheta
+\iota
+\kappa
+\lambda
+\mu
+\nu
+\xi
+\pi
+\varpi
+\rho
+\varrho
+\sigma
+\varsigma
+\tau
+\upsilon
+\phi
+\varphi
+\chi
+\psi
+\omega
+111
+$
+}}}
+
+
+
+
+
+\end{document}

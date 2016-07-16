@@ -1,0 +1,137 @@
+\documentclass[a4paper,12pt,draft]{article}%
+%添加宏包
+\usepackage{graphicx}%用于图像
+\usepackage{times}
+\usepackage{fontspec,xunicode,xltxtra}%XeLaTeX相关字体库，系统字库
+\usepackage{multicol,multirow} %分栏
+\usepackage{balance}%双栏文档底部对齐
+\usepackage{indentfirst}             % 首行缩进
+\usepackage{setspace}                % 调节行间距
+\usepackage{booktabs}                % 用于表格中加下划线
+\usepackage{fancyhdr}                % 页眉页脚
+\usepackage{type1cm}                 % 控制字体大小
+\usepackage{amsmath}				%数学公式
+\usepackage{amssymb}				%漂亮的数学公式排版
+\usepackage{makeidx}                 % 建立索引
+\usepackage{bm}
+\iffalse
+\usepackage[a4paper,left=1.5cm,right=1.5cm, 
+top=2.5cm,bottom=2cm,textwidth=14cm,textheight=20.3cm,
+includehead,headheight=15pt,headsep=25pt]{geometry}
+\fi
+
+%页面布局
+\usepackage{geometry} 
+\geometry{paperwidth=21cm,paperheight=29.5cm}
+\geometry{textwidth=17cm,lines=26} 
+\geometry{left=2cm,right=2cm, top=1.5cm,bottom=2cm} 
+\geometry{includehead,headheight=5pt,headsep=15pt}
+
+%字体字号重定义（方便快捷使用）
+\newcommand{\wuhao}{\fontsize{10.5pt}{20pt}\selectfont}%五号字体，20磅行距
+\newcommand{\xiaosan}{\fontsize{15pt}{22pt}\selectfont}%小三字体，1.5倍行距
+\newcommand{\numshihao}{\fontsize{10pt}{20pt}\selectfont}%10号字体，20磅行距
+\newcommand{\erhao}{\fontsize{22pt}{22pt}\selectfont}%二号字体，单倍行距
+\newcommand{\yemeiyejiao}{\fontsize{12pt}{12pt}\selectfont}%页眉页脚字号
+
+%中文字体设置
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+\setmainfont[BoldFont=SimHei]{SimSun}
+\newfontfamily\song{simsun.ttc}%宋体
+\newfontfamily\hei{simhei.ttf}%黑体
+\newfontfamily\roman{Times New Roman}
+
+%命令重定义自定义
+%\newtheorem{theorem}{定理}
+%\newtheorem{definition}{定义}
+%\newtheorem{property}{问题}
+%\newtheorem{proposition}{猜测}
+%\newtheorem{lemma}{引理}
+%\newtheorem{corollary}{推论}
+%\renewcommand{\contentsname}{\center\hei{\sanhao{目录}}}
+\renewcommand{\refname}{\textbf{\xiaosi{\song{参考文献}}}}      % 将References改为参考文献、
+\renewcommand{\figurename}{\song 图}
+\renewcommand{\tablename}{\song 表}
+
+%封面
+\title{\textbf{\erhao\hei{毕设翻译}}}
+\author{\song\wuhao{赵欣}}
+\date{\song\wuhao{2014年5月3日}}
+
+%定义页眉页脚
+\pagestyle{fancy}
+\lhead{}
+\chead{\song\yemeiyejiao{全环面CVT的多目标几何优化}}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+
+\begin{document}
+\centering
+\maketitle
+\tableofcontents
+\thispagestyle{empty}
+%\include{balance}
+\newpage
+%\vspace*{-5pt}
+\flushleft
+\song\wuhao{
+国际汽车技术杂志(International Journal of Automotive Technology) 
+
+14卷,第5期,第707-715页，2013年
+
+DOI~10.1007/s12239-013-0077-0
+}
+
+\vspace*{5pt}
+\centering
+\hei\xiaosan\textbf{
+全环面CVT的多目标几何优化}
+
+\wuhao\song{
+M. DELKHOSH and M. SAADAT FOUMANI
+
+School of Mechanical Engineering,
+
+Sharif University of Technology, (\mbox{\textbf 伊朗沙力夫理工大学}), Tehran 11155-9567, Iran
+
+(Received 2 September 2011; Revised 8 January 2013; Accepted 13 February 2013)
+}
+
+
+\flushleft
+\textbf{\hei\numshihao{摘要：}}\song\numshihao{本文旨在通过对全环面CVT的几何和运动学方面的研究，提高传动效率，降低损耗。首先，对系统进行\\
+了动力学分析。建立了用于仿真圆盘-滚子弹流接触特性的数学模型，计算得到了CVT的传动效率；并通过比较\\
+仿真与实验结果，研究了该模型的有效性；进而通过粒子群优化算法，以传动效率最大化、质量最小化为目标\\
+，优化得到了牵引传动的几何参数；在此基础上，分析了输入参数（油温和滚子倾角（速比））不同取值下的\\
+计算结果。优化结果表明：在输入参数不同取值下，优化得到的几何参数大致相同；而且，升高油温和增大滚\\
+子倾角（顺时针方向），将降低传动效率。另外，优化得到的几何参数，可使系统在较宽的输入参数取值范围\\
+内平均传动效率达到86.7\%。}
+
+\textbf{\hei\numshihao{关键词：}}\song\numshihao{能量传递，CVT，全环面，效率，优化，PSO，弹性流体动力学。}
+
+\bf{赵欣aa}
+\textbf{aa}\\
+赵欣aa
+
+%\balance
+\begin{multicols}{2}
+\section{\wuhao{引言}}
+%\indent
+\song\wuhao 的规划仍同行低功耗的开发几个号多少但考虑非结构化打了快放假过后都快放假过后上来看到非结构化大立科技风格化打开了工商克里斯多夫规划塑料袋开个会了多少开发规划打开了韩国
+%
+\section{\wuhao{第一章}}
+%\indent
+\song\wuhao 近年来，汽车排放被视为全球变暖主要诱因之一。一方面，汽车的工作效率越高，其向大气中排放的热量较少；另一方面，目前矿物燃料资源几近枯竭。这两个原因促使研究人员试图寻找能够同时降低燃油消耗和提高机械效率的方法。CVT便是解决方法之一。CVT动力总成能使油耗减少10\%。理论上，CVT作为动力总成可以有效防止冲击力对发动机的作用，使其稳定运行在最佳工况下，从而使油耗减少，疲劳寿命增加。CVT已在用拖拉机，铣床，飞机等上广泛使用，它在电动汽车上发挥作用尤其显著。近年来，汽车排放被视为全球变暖主要诱因之一。一方面，汽车的工作效率越高，其向大气中排放的热量较少；另一方面，目前矿物燃料资源几近枯竭。这两个原因促使研究人员试图寻找能够同时降低燃油消耗和提高机械效率的方法。CVT便是解决方法之一。CVT动力总成能使油耗减少10\%。理论上，CVT作为动力总成可以有效防止冲击力对发动机的作用，使其稳定运行在最佳工况下，从而使油耗减少，疲劳寿命增加。CVT已在用拖拉机，铣床，飞机等上广泛使用，它在电动汽车上发挥作用尤其显著。
+\end{multicols}
+
+
+\end{document}
+
+
+
+
+
+

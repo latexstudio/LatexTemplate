@@ -1,0 +1,241 @@
+%%% linuxbeamer.tex --- 
+%% 
+%% Description: 
+%% Author: Hongyi Wu(吴鸿毅)
+%% Email: wuhongyi@qq.com 
+%% Created: 五 10月 24 20:58:05 2014 (+0800)
+%% Last-Updated: 三 9月  9 22:07:45 2015 (+0800)
+%%           By: Hongyi Wu(吴鸿毅)
+%%     Update #: 99
+%% URL: http://wuhongyi.github.io 
+
+\documentclass[presentation]{beamer}
+%\graphicspath{{images/}} % Location of the slide background and figure files
+\usepackage[slantfont,boldfont]{xeCJK} 
+%------------------------------------------------
+% Fonts
+\usepackage{fontspec}
+%字体重命名，方便使用
+%% \newfontfamily\times{Times New Roman}
+\newCJKfontfamily{\song}{SimSun}
+\newCJKfontfamily{\hei}{SimHei}
+\newCJKfontfamily{\kai}{KaiTi}
+\newCJKfontfamily{\fangsong}{FangSong}
+\setmainfont{Times New Roman}%文档正文默认英语字体,设置衬线字体
+%% \setsansfont {}%设定无衬线字体
+\setCJKmainfont[BoldFont={SimSun},ItalicFont={KaiTi}]{SimSun}%设置默认中文字体
+\setCJKsansfont{SimHei}
+\setCJKmonofont{FangSong}% 设置等宽字体
+%Sans Serif 无衬线字体 楷体、黑体、幼圆 \sansfont 。Serif 衬线字体 对应中文的 宋、仿宋\mainfont
+\XeTeXlinebreaklocale "zh"  % 表示用中文的断行
+\XeTeXlinebreakskip = 0pt plus 1pt % 多一点调整的空间
+\setlength{\parindent}{2em}%设置缩进为两个大写M的宽度，大约为两个汉字的宽度
+%------------------------------------------------
+\usepackage{graphics}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{beamerthemesplit}
+\usepackage{hyperref}%为PDF文档创建超链接
+\usepackage{amsmath}%数学符号与公式
+\usepackage{amsfonts} %数学符号与字体
+\usepackage{supertabular}
+\usepackage{multirow} %合并表格列
+\usepackage{tabularx} %调节表格宽度
+\usepackage{bm} % Required for bold math symbols (used in the footer of the slides)
+\usepackage{tikz}
+\usepackage{booktabs} % Required for horizontal rules in tables  % Allows the use of \toprule, \midrule and \bottomrule in tables
+%------------------------------------------------
+% Colors
+\usepackage{xcolor}	 % Required for custom colors
+% Define a few colors for making text stand out within the presentation
+\definecolor{mygreen}{RGB}{44,85,17}
+\definecolor{myblue}{RGB}{34,31,217}
+\definecolor{mybrown}{RGB}{194,164,113}
+\definecolor{myred}{RGB}{255,66,56}
+% Use these colors within the presentation by enclosing text in the commands below
+\newcommand*{\mygreen}[1]{\textcolor{mygreen}{#1}}
+\newcommand*{\myblue}[1]{\textcolor{myblue}{#1}}
+\newcommand*{\mybrown}[1]{\textcolor{mybrown}{#1}}
+\newcommand*{\myred}[1]{\textcolor{myred}{#1}}
+%------------------------------------------------
+\newcommand{\fbckg}[1]{\usebackgroundtemplate{\includegraphics[width=\paperwidth]{#1}}}%frame background
+
+%\usetheme{Warsaw}%不好
+%\usetheme{AnnArbor}%边框黄色、深蓝色，一般
+%\usetheme{PaloAlto}%深蓝色，左边带目录
+%\usetheme{Antibes}%深蓝色，好看
+\usetheme{CambridgeUS}%深红色，好看
+%\usetheme{Copenhagen}%边框黑色、深蓝色，一般
+%\usetheme{Darmstadt}%不好
+%\usetheme{Dresden}%深蓝色，上边有目录
+%\usetheme{Frankfurt}%不好
+%\usetheme{Goettingen}%不好，左边带目录
+%\usetheme{Hannover}%浅灰，左边带目录
+%\usetheme{Ilmenau}%深蓝色，上边有目录
+%\usetheme{JuanLesPins}%一般
+%\usetheme{Luebeck}%%边框黑色、深蓝色
+%\usetheme{Madrid}%深蓝色
+%\usetheme{Marburg}%不好，边框黑色、深蓝色，右边带目录
+%\usetheme{PaloAlto}%边框黑色、深蓝色，左边带目录
+%\usetheme{Singapore}%不好
+
+% \useoutertheme[]{infolines}
+% \useinnertheme[]{default}
+% \usecolortheme[]{beaver}
+% \usefonttheme[]{structurebold}
+
+\title[beamer模板]{吴鸿毅beamer模板}% The short title appears at the bottom of every slide, the full title is only on the title page
+\subtitle{Beamer中英文混排}
+\author{吴鸿毅}
+%\institute{哈尔滨工程大学 核科学与技术学院}
+\institute[北京大学\ 物理学院] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+北京大学\ 物理学院 \\ % Your institution for the title page
+\medskip
+\textit{wuhongyi@qq.com} % Your email address
+}
+\date{\today}
+\logo{\includegraphics[height=1cm, width=1cm]{logo.jpeg}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage  % Print the title page as the first slide
+\end{frame}
+
+
+\begin{frame}
+\frametitle{目录}  % Table of contents slide, comment this block out to remove it
+    \tableofcontents     %你也可以插入选项 [pausesections]    % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+\section{第一章} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+\subsection{第一节}  % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
+%------------------------------------------------
+\begin{frame}
+  \frametitle{本页标题}
+  {\kai 中文显示正确！}\\
+  English test succeed!\\
+  \begin{align}\label{eq:ei}
+    E=mc^2\\
+    E=\hbar \nu
+  \end{align}
+\end{frame}
+%------------------------------------------------
+\begin{frame}[allowframebreaks]
+\frametitle{大段中英文混排测试}
+\song 中国共产党第十八次全国代表大会开幕式定于\myred{2012年11月8日9:00}在\myblue{人民大会堂大礼堂}举行。
+现将有关事项通知如下：
+
+
+一、 请各位记者凭大会采访证于上午7:30至8:40从人民大会堂
+东门经安全检查入场。
+
+
+二、 摄影摄像记者从大礼堂二楼5号门进入会场，在二层3、5、7区记者席
+就座；文字记者从大礼堂三楼5号门进入会场，在三层大礼堂3、5、7区记者席就座。
+
+
+三、 各位记者所乘车辆凭大会车证在天安门广场指定位置停放。届时，新闻中心将
+为参加开幕式的境外媒体提供从瑞吉酒店（\alert{原国际俱乐部酒店}）出发前往人民
+大会堂的摆渡车，发车时间为8日上午6:45.
+
+
+四、 开幕式将由中央电视台进行现场直播。新闻中心将免费提供开幕式直播公
+共信号。请参加开幕式的媒体勿将直播设备带入会场。
+kdghld sfh dsg
+
+　　(中国共产党新闻网)
+\end{frame}
+%------------------------------------------------
+
+\subsection{图片测试}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{图片插入测试}
+图片插入测试，您将看到图像。
+\begin{figure}
+\centering
+  \includegraphics[width=5cm]{logo.jpeg}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+\section{其他测试}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{my first beamer!}
+\begin{definition}
+a \alert{beamer} is to create a slides show!
+\end{definition}
+\begin{example}
+$3x^{3}+2x^{2}+x+1=0$
+\end{example}
+\end{frame}
+%------------------------------------------------
+
+\section{总结一下}
+%------------------------------------------------
+\begin{frame}
+    \frametitle{为什么使用Beamer？}
+    \begin{enumerate}
+      \item \XeLaTeX 非常棒！
+      \begin{enumerate}
+        \item 可以使用系统字体；
+        \item 可以中英文混排；
+        \item 这些优点已经足够了！
+      \end{enumerate}
+      \item Beamer非常棒！
+      \item \LaTeX 非常棒！
+    \end{enumerate}
+\end{frame}
+%------------------------------------------------
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%
+\begin{frame}[]
+\begin{frame}
+  \frametitle{}%帧标题
+  %\framesubtitle{}%帧副题
+
+\end{frame}
+其中可选参数有下列选项：
+allowframebreaks 当帧环境中的内容过多，超出一幅幻灯片所能显示的范围时，超出部分就看不到，如果使用该选项，帧环境就能自动换幅，即自动增加一幅以放置超出的内容。
+allowdisplaybreaks 允许多行公式中间换幅，该选项必须与allowframebreaks选项同时使用，否则无效。
+t 每幅幻灯片中的内容顶对齐。
+c 默认值，即每幅幻灯片中的内容垂直居中。帧环境的t、c选项优先于beamer的t、c选项。
+b 每幅幻灯片中的内容底对齐。
+fragile 它告诉beamer帧环境中的内容是“脆弱”的，不能按通常的意义来编译，例如在使用抄录环境verbatim时就要添加此选项。
+containsverbatim 使用抄录环境verbatim或\verb命令时要添加此选项。
+squeeze 压缩文本行之间的行距。
+shrink 帧环境中的内容超出一幅幻灯片所能显示的范围时，超出部分就看不到了，如果使用该选项，可自动缩小帧环境中所有内容的字体尺寸，并压缩行距，使帧环境中的全部内容都能够放在一幅幻灯片里。使用本选项时，squeeze选项也就自动被启用了。
+plain 取消各种导航条和微标（logo），以便创建其他样式的导航条或是显示一张满幅的插图等。微标是用\logo命令生成的插图，通常是校徽或是会徽。
+%%%%%%%%%%%%%%%%%%
+\beamersetaveragebackground{black!10}%设置帧背景德文颜色
+
+\alert{}%将其中的文本字体改为红色，它的作用类似于\emph命令，用于强调某一词语。
+
+
+\begin{tabular}{|c|c|c|c|c|}%表格合并行列
+\hline \hline 
+lable 1-1 & label 1-2 & label 1-3 & label 1 -4 & label 1-5\\\hline
+label 2-1 & label 2-2 & label 3-3 & label 4-4 & label 5-5 \\\hline
+\multirow{2}{*}{Multi-Row} & \multicolumn{2}{|c|}{Multi-Column} & \multicolumn{2}{|c|}{\multirow{2}{*}{Multi-Row and Col}} \\\cline{2-3} 
+& column-1 & column-2 & \multicolumn{2}{|c|}{}\\%补偿上面的两列合并的那一行
+\hline
+\end{tabular}
+
+\fbckg{logo.jpeg} % Slide background image
+\fbckg{blank} % A blank background can be used instead of an image
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% linuxbeamer.tex ends here

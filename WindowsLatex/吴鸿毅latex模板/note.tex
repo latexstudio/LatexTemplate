@@ -1,0 +1,1126 @@
+%%% muban_latex.tex --- 
+%% 
+%% Description: 
+%% Author: Hongyi Wu(吴鸿毅)
+%% Email: wuhongyi@qq.com 
+%% Created: 六 4月  5 10:16:59 2014 (+0800)
+%% Last-Updated: 六 4月  5 10:27:17 2014 (+0800)
+%%           By: Hongyi Wu(吴鸿毅)
+%%     Update #: 2
+%% URL: http://wuhongyi.github.io 
+
+\documentclass[11pt,a4paper,titlepage]{article}
+
+\usepackage{fontspec}
+\usepackage[top=1in,bottom=1in,left=1.2in,right=1in]{geometry}
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+\newfontfamily\kai{AR PL UKai CN}
+\setmainfont{WenQuanYi Zen Hei}
+
+\usepackage[pagestyles]{titlesec}
+\titleformat{\section}{\centering\huge\bfseries}{\S\,\thesection}{1em}{}
+\titleformat{\subsection}{\LARGE\bfseries}{\S\,\thesubsection}{1em}{}
+
+\newpagestyle{main}{
+\sethead{\small\S\,\thesection\quad\sectiontitle}{}{$\cdot$~\thepage~$\cdot$}%页眉
+\setfoot{哈尔滨工程大学}{核科学与技术学院}{\kai 吴鸿毅}%页脚
+\footrule%画页脚线
+\headrule%画页眉线
+}
+\pagestyle{main}
+
+\usepackage{listings}
+\usepackage{color}
+
+
+\title{\Huge {Scientific Linux 笔记}}
+\author{\kai 吴鸿毅 \and wuhongyi@qq.com}
+\date{2014年4月5日}
+
+\usepackage{hyperref} 
+
+\begin{document}
+\maketitle%显示标题信息
+\tableofcontents%插入目录，需要编译两次才能出现
+\newpage%另起一页
+
+\section{Basics}%第一章
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\kai 基础网站}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Linux: http://www.linux.org\\
+C++: http://www.cplusplus.com\\
+Monte Carlo: http://en.wikipedia.org/wiki/Monte\_Carlo\_method\\
+Wikipedia: http://en.wikipedia.org\\
+Dictionary: http://www.thefreedictionary.com\\
+
+\subsection{\kai Geant4运行}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+cd geant4.9.6-install/bin\\
+. geant4.sh\\
+cd\\
+cd g4work\\
+mkdir XX-build\\
+cd /home/wuhongyi/g4work/XX-build\\
+cmake -DGeant4\_DIR=/home/wuhongyi/geant4.9.6-install/lib64/Geant4-9.6.2 /home/wuhongyi/g4work/XX\\
+cmake -DGeant4\_DIR=/home/bks/geant4/geant4.9.6-install/lib64/Geant4-9.6.2 /home/bks/g4work/XX\\
+make -j4\\
+make\\
+make VERBOSE=1\\
+./XX\\
+\\
+/run/beamOn xx      //跑xx个粒子\\
+
+\subsection{\kai 查看root格式数据}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+查看root格式数据：\\
+root filename.root\\
+.ls\\
+\\
+查看tree中branch：\\
+NameOfTree->Print()\\
+查看tree中leaf：\\
+NameOfTree->Scan()\\
+
+\subsection{\kai cmake编译安装软件示例}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\# Top Level CMakeLists.txt for CLHEP\\
+\#  cmake [-DCMAKE\_INSTALL\_PREFIX=/install/path] \\
+\#        [-DCMAKE\_BUILD\_TYPE=Debug|Release|RelWithDebInfo|MinSizeRel]\\
+\#        [-DCMAKE\_C\_COMPILER=...] [-DCMAKE\_CXX\_COMPILER=...]\\
+\#        [-DCLHEP\_BUILD\_DOCS=ON]\\
+\#        [-DLIB\_SUFFIX=64]\\
+\#        /path/to/source\\
+\#  make\\
+\#  make test\\
+\#  make install\\
+\#\\
+\# mac i386:   -DCMAKE\_CXX\_FLAGS="-m32" -DCMAKE\_OSX\_ARCHITECTURES="i386"\\
+\# mac x86\_64: -DCMAKE\_CXX\_FLAGS="-m64" -DCMAKE\_OSX\_ARCHITECTURES="x86\_64"\\
+\#\\
+\# Use -DLIB\_SUFFIX=64 to install the libraries in a lib64 subdirectory\\
+\# instead of the default lib subdirectory.  \\
+\#\\
+\# The default CLHEP build type is CMAKE\_BUILD\_TYPE=RelWithDebInfo,\\
+\# which matches the default CLHEP autoconf flags\\
+
+\subsection{install}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Geant4}
+先到官网下载源码，然后解压缩。以下我以4.10为例。\\
+将源码放在安装目录下：    geant4.10 \\
+新建中间文件夹： mkdir geant4.10-build\\
+新建安装文件夹：mkdir geant410\\
+进入中间文件夹：cd geant4.10-build\\
+cmake -DCMAKE\_INSTALL\_PREFIX=安装文件夹地址  源码文件夹地址\\
+以个人电脑为例：\\
+cmake -DCMAKE\_INSTALL\_PREFIX=/opt/geant4/geant410   /opt/geant4/geant4.10\\
+\\
+当然，以上安装只是最基础的安装，还需要一些图形显示，多线程等功能，所以得在两个路径之间添加一些功能选项。\\
+-DGEANT4\_USE\_OPENGL\_X11=ON -DGEANT4\_USE\_RAYTRACER\_X11=ON \\
+-DGEANT4\_USE\_QT=ON\\
+-DGEANT4\_BUILD\_MULTITHREADED=ON\\
+-DGEANT4\_USE\_GDML:BOOL=ON\\
+其中GDML需要xercesc库。这个在SL可以在添加/删除软件里面添加就行。\\
+
+然就剩下的就是:\\
+make\\
+make install\\
+
+\section{cmake note}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\kai 『语法』}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+注释  \# :   \\
+    \#我是注释\\
+\\
+命令语法 COMMAND：\\
+    COMMAND(参数1 参数2 ...)\\
+\\
+字符串列\\
+\\
+    A;B;C   //分号分割或空格分隔的值 \\
+\\
+变量\\
+    set(Foo a b c)     // 设置变量 Foo\\
+    command(\$\{Foo\})     //等价于 command(a b c)\\
+    command("\$\{Foo\}")  // 等价于 command("a b c")\\
+    command("/\$\{Foo\}") // 转义，和 a b c无关联\\
+\\
+流控制结构\\
+    IF()...ELSE()  /ELSEIF()...ENDIF()\\
+    WHILE()...ENDWHILE()\\
+    FOREACH()...ENDFOREACH()\\
+
+\subsection{\kai 『常用命令』}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+（按A\~{}Z排列）\\
+\\
+ADD\_EXECUTABLE\\
+add\_exectuable  : 工程生成一个可执行文件。\\
+add\_executable(hello \$\{SRC\_LIST\})  //生成一个名为hello.exe的可执行文件\\
+\\
+ADD\_LIBRARY\\
+add\_library :  生成一个库文件。\\
+add\_library(libhello\$\{LIB\_SRC\})  //生成libhello.lib文件\\
+add\_library(libhello SHARED \$\{LIB\_SRC\})  //生成动态库文件\\
+\\
+ADD\_CUSTOM\_TARGET
+自定义目标，生成一个自定义文件类型\\
+\\
+add\_subdirectory ：增加子文件夹，2个参数的话就是源→目标 文件夹生成对应 \\
+add\_subdirectory(src) ：建立src子文件夹\\
+add\_subdirectory(src bin)  ：在cmake目标文件夹中与源文件夹对应 src→bin文件夹\\
+\\
+ADD\_DEPENDENCIES( target1 t2 t3 )\\
+目标target1依赖于t2 t3\\
+\\
+ADD\_DEFINITIONS( "-Wall -ansi")\\
+本意是供设置 -D... /D... 等编译预处理需要的宏定义参数，对比 REMOVE\_DEFINITIONS()\\
+\\
+AUX\_SOURCE\_DIRECTORY ( “sourcedir” variable)\\
+收集目录中的文件名并赋值给变量\\
+\\
+EXEC\_PROGRAM ( bin [work\_dir] ARGS <..> [OUTPUT\_VARIABLE var] [RETURN\_VALUE var] )\\
+ 执行外部程序\\
+\\
+FILE ( WRITE|READ|APPEND|GLOB| GLOB\_RECURSE|REMOVE|MAKE\_DIRECTORY ...)\\
+文件操作\\
+\\
+FIND\_FILE\\
+FIND\_PATH\\
+FIND\_LIBRARY\\
+FIND\_PACKAGE    上述4个注意 CMAKE\_LIBRARY\_PATH\\
+\\
+FIND\_PROGRAM\\
+\\
+\\
+INCLUDE\_DIRECTORIES ( "dir1" "dir2" ... )\\
+include\_directories  : 包含指定目录下的指定文件夹\\
+include\_directories(\$\{PROJECT\_SOURCE\_DIR\}/libhello)  //包含当前目录下的libhello文件夹\\
+\\
+INSTALL ( FILES “f1” “f2”DESTINATION . )\\
+DESTINATION （目标文件夹）相对于 \$\{CMAKE\_INSTALL\_PREFIX\}\\
+ \\
+LINK\_DIRECTORIES ("dir1" "dir2")\\
+ 库文件路径。注意：由于历史原因，相对路径会原样传递给链接器。尽量使用FIND\_LIBRARY而避免使用这个。\\
+ \\
+LINK\_LIBRARIES ( lib1 lib2 ...)\\
+设置所有目标需要链接的库\\
+\\
+LIST ( APPEND|INSERT|LENGTH|GET| REMOVE\_ITEM|REMOVE\_AT|SORT ...)\\
+列表操作\\
+\\
+MESSAGE (...)  输出信息，方便检查调试\\
+\\
+message(\$\{PROJECT\_SOURCE\_DIR\})\\
+\\
+project\\
+\\
+建立一个工程\\
+project   不是强制性的，但最好始终都加上。这一行会引入两个变量\\
+•HELLO\_BINARY\_DIR 和 HELLO\_SOURCE\_DIR\\
+同时，cmake自动定义了两个等价的变量\\
+•PROJECT\_BINARY\_DIR   和  PROJECT\_SOURCE\_DIR\\
+如果是out-of-source方式构建（源代码和生成的中间产物分离），所以要时刻区分这两个变量对应的目录\\
+\\
+SET\\
+set (SRC\_LIST hello.cpp)  //源文件列表 hello.cpp\\
+set (APP\_SRC main.c)       //语义基本同上，具体不太了解\\
+set (EXECUTABLE\_OUTPUT\_PATH \$\{PROJECT\_BINARY\_DIR\}/bin)  //指定生成hello.exe到目标文件夹\\
+\\
+SET\_TARGET\_PROPERTIES ( ... )：设置目标的属性 OUTPUT\_NAME, VERSION, ....\\\
+set\_target\_properties(libhello PROPERTIES OUTPUT\_NAME "hello")  //使libhello.lib输出文件名为hello.exe\\
+\\
+SEPARATE\_ARGUMENTS ( VAR )\\
+转换空格分隔的字符串到列表\\
+\\
+STRING ( TOUPPER|TOLOWER|LENGTH| SUBSTRING|REPLACE|REGEX ...)\\
+字符串操作\\
+\\
+TARGET\_LINK\_LIBRARIES ( target-name lib1 lib2 ...)\\
+target\_link\_libraries  :  将指定库文件链接到某个执行文件\\
+target\_link\_libraries(hello libhello)   //将libhello.lib文件链接到hello.exe\\
+
+\subsection{\kai 『常见变量』}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+----工程路径------\\
+\\
+•CMAKE\_SOURCE\_DIR\\
+•PROJECT\_SOURCE\_DIR\\
+•<projectname>\_SOURCE\_DIR\\
+这三个变量指代的内容是一致的，是工程顶层目录\\
+\\
+•CMAKE\_BINARY\_DIR\\
+•PROJECT\_BINARY\_DIR\\
+•<projectname>\_BINARY\_DIR\\
+这三个变量指代的内容是一致的，如果是in source编译，指得就是工程顶层目录，如果  是out-of-source编译，指的是工程编译发生的目录\\
+\\
+•CMAKE\_CURRENT\_SOURCE\_DIR\\
+指的是当前处理的CMakeLists.txt所在的路径。\\
+\\
+•CMAKE\_CURRRENT\_BINARY\_DIR\\
+如果是in-source编译，它跟CMAKE\_CURRENT\_SOURCE\_DIR一致，如果是out-ofsource  编译，他指的是target编译目录。\\
+\\
+•CMAKE\_CURRENT\_LIST\_FILE\\
+输出调用这个变量的CMakeLists.txt的完整路径\\
+\\
+----CMAKE\_BUILD\_TYPE-----\\
+\\
+控制 Debug 和 Release 模式的构建\\
+\\
+•CMakeList.txt文件\\
+SET(CMAKE\_BUILD\_TYPE Debug)•命令行参数\\
+cmake DCMAKE\_BUILD\_TYPE=Relea \\
+\\
+-----编译器参数-----\\
+\\
+•CMAKE\_C\_FLAGS\\
+•CMAKE\_CXX\_FLAGS\\
+也可以通过指令ADD\_DEFINITIONS()添加\\
+\\
+CMAKE\_INCLUDE\_PATH\\
+配合 FIND\_FILE() 以及 FIND\_PATH() 使用。如果头文件没有存放在常规路径/usr/include, /usr/local/include等)，则可以通过这些变量就行弥补。如果不使用 FIND\_FILE 和 FIND\_PATH的话，CMAKE\_INCLUDE\_PATH，没有任何作用。\\
+\\
+•CMAKE\_LIBRARY\_PATH\\
+\\
+配合 FIND\_LIBRARY() 使用。否则没有任何作用\\
+\\
+ \\
+•CMAKE\_MODULE\_PATH\\
+\\
+cmake 为上百个软件包提供了查找器(finder):FindXXXX.cmake\\
+\\
+当使用非cmake自带的finder时，需要指定finder的路径，这就是CMAKE\_MODULE\_PATH，配合 FIND\_PACKAGE\\
+\\
+()使用\\
+\\
+CMAKE\_INSTALL\_PREFIX\\
+控制make install是文件会安装到什么地方。默认定义是/usr/local 或 \%PROGRAMFILES\%\\
+\\
+BUILD\_SHARED\_LIBS\\
+如果不进行设置，使用ADD\_LIBRARY且没有指定库类型，默认编译生成的库是静态库。\\
+\\
+UNIX 与 WIN32\\
+•UNIX，在所有的类UNIX平台为TRUE，包括OS X和cygwin\\
+•WIN32，在所有的win32平台为TRUE，包括cygwin\\
+
+\section{\kai linux技巧}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\kai 编译运行}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+编译运行端面输入：\\
+g++ 文件名 -o 要生成的编译文件名\\
+./生成的编译文件名\\
+\\
+gfortran 要编译的文件名 -0 指定生成的文件名\\
+支持最新的c++11编译：\\
+g++ -std=c++11 main.cc -o 123\\
+g++ -std=c++0x test.C -o 123\\
+g++ -std=gnu++0x main.cc -o 123\\
+ g++ -std=c++11 -pthread main.cc -o 123 多线程\\
+
+\subsection{\kai 基本操作}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+解压\\
+tar –xvf file.tar       //解压 tar包\\
+tar -xzvf file.tar.gz   //解压tar.gz\\
+tar -xjvf file.tar.bz2  //解压 tar.bz2\\
+tar –xZvf file.tar.Z    //解压tar.Z\\
+unrar e file.rar//解压rar\\
+unzip file.zip  //解压zip\\
+\\
+set//显示所有本地变量\\ 
+\\
+ls //显示文件名\\
+mkdir 文件夹名       //新建文件夹\\       
+touch 文件名//新建文件\\
+cat 文件名  //显示文件内部内容\\
+rm 文件名   //删除文件\\
+pwd       //查看当前目录\\
+cp         //复制\\
+
+\subsection{\kai 服务器连接}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+查看ip：ifconfig\\
+链接服务器：\\
+ssh -Y bks@192.168.1.101\\
+传文件：\\
+scp /home/wuhongyi/test/test.C bks@192.168.1.101:/home/bks/wuhongyi\\
+传文件夹：\\
+scp -r /home/wuhongyi/test/ bks@192.168.1.101:/home/bks/wuhongyi\\
+
+\section{ROOT note}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\kai 程序打开ROOT文件}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+TFile f("demo.root");\\
+if (f.IsZombie()) \{\\
+cout << "Error opening file" << endl;\\
+exit(-1);\} \\
+else \{\\
+ .....\\
+\}\\
+
+\subsection{\kai 案例}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+TF1 *f1=new TF1("aaaaa","f(x)",min,max);\\
+TF2 *f2=new TF2("aaaaa","f(x,y)",x min,x max,y min,y max);\\
+TH1F *h1=new TH1F("stats name","title name",number of bins,min,max);\\
+TH1F *h1=new TH1F("stats name","title name;X axis;Y axis",number of bins,min,max);\\
+TH2* h = new TH2D(/* name */ "h2",/* title */ "Hist with constant bin width",/* X-dimension */ 100, 0.0, 4.0,/* Y-dimension */ 200, -3.0, 1.5);\\
+\\
+\\
+const Int\_t XBINS = 5; const Int\_t YBINS = 5;\\
+Double\_t xEdges[XBINS + 1] = \{0.0, 0.2, 0.3, 0.6, 0.8, 1.0\};\\
+Double\_t yEdges[YBINS + 1] = \{-1.0, -0.4, -0.2, 0.5, 0.7, 1.0\};\\
+TH2* h = new TH2D("h2", "h2", XBINS, xEdges, YBINS, yEdges);\\
+TAxis* xAxis = h->GetXaxis(); TAxis* yAxis = h->GetYaxis();\\
+cout << "Third bin on Y-dimension: " << endl; // corresponds to [-0.2, 0.5]\\
+cout << "\textbackslash tLower edge: " << yAxis->GetBinLowEdge(3) << endl;\\
+cout << "\textbackslash tCenter: " << yAxis->GetBinCenter(3) << endl;\\
+cout << "\textbackslash tUpper edge: " << yAxis->GetBinUpEdge(3) << endl;\\
+\\
+TH3D *h3 = new TH3D("h3", "h3", 20, -2, 2, 20, -2, 2, 20, 0, 4);\\
+Double\_t x,y,z;\\
+for (Int\_t i=0; i<10000; i++) \{\\
+gRandom->Rannor(x,y);\\     
+z=x*x+y*y;\\
+h3->Fill(x,y,z);\\
+\}\\
+h3->Draw("iso");\\
+\\
+TF3 *fun3 = new TF3("fun3","sin(x*x+y*y+z*z-36)",-2,2,-2,2,-2,2);\\
+fun3->Draw();\\
+\\
+const Int\_t n = 20;\\
+Double\_t x[n], y[n];\\
+for (Int\_t i=0;i<n;i++)\ {\\
+x[i] = i*0.1;\\
+y[i] = 10*sin(x[i]+0.2);\}\\
+// create graph\\
+TGraph *gr = new TGraph(n,x,y);\\
+TCanvas *c1 = new TCanvas("c1","Graph Draw Options",200,10,600,400);\\
+// draw the graph with axis, continuous line, and put a * at each point\\
+gr->Draw("AC*");\\
+\\
+TCanvas *CPol = new TCanvas("CPol","TGraphPolar Examples",700,700);\\
+Double\_t rmin=0;\\
+Double\_t rmax=TMath::Pi()*2;\\
+Double\_t r[1000];\\
+Double\_t theta[1000];\\
+TF1 * fp1 = new TF1("fplot","cos(x)",rmin,rmax);\\
+for (Int\_t ipt = 0; ipt < 1000; ipt++) \{\\
+r[ipt] = ipt*(rmax-rmin)/1000+rmin;\\
+theta[ipt] = fp1->Eval(r[ipt]);\}\\
+TGraphPolar * grP1 = new TGraphPolar(1000,r,theta);\\
+grP1->SetLineColor(2);\\
+grP1->Draw("AOL");\\
+\\
+char name[10], title[20];\\
+TObjArray Hlist(0);\\
+TH1F* h;\\
+for (Int\_t i = 0; i < 15; i++) \{\\
+sprintf(name,"h\%d",i);   //把格式化的数据写入字符串中\\
+sprintf(title,"histo nr:\%d",i);\\
+h = new TH1F(name,title,100,-4,4);\\
+Hlist.Add(h);\\
+h->FillRandom("gaus",1000);\}\\
+TFile f("demo.root","recreate");\\
+Hlist->Write();\\
+f.Close();\\
+
+\subsection{Draw}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+TCanvas *MyC = new TCanvas("MyC","Test canvas",1)     //新建画板\\
+MyC->SetFillColor(42);                                //设置画板背景颜色\\
+MyC->Divide(2,2)                                      //将画板分成2*2四个区域\\
+MyC->cd(1)                                            //指向第一个区域\\
+f1->Draw()                                            //在第一个区域画图f1\\
+\\
+TH1* hc = (TH1*)f1->Clone();                          //克隆直方图\\
+***********************************************\\
+h1->SetLineColor(1);\\
+//1 black;2 red;3 green;4 blue;5yellow;6 magenta;……\\
+h1->SetLogx();   //设置x轴为对数坐标轴\\
+h1->GetXaxis()->SetTitle("x");\\
+h->GetXaxis()->SetTitle("X axis title");\\
+h->GetYaxis()->SetTitle("Y axis title");\\
+h->GetZaxis()->SetTitle("Z axis title");\\
+h1->SetTitle("title name;X axis;Y axis");\\
+h->GetXaxis()->CenterTitle()\\
+h->GetYaxis()->CenterTitle()\\
+\\
+h1->SetFrameFillColor(33);    //设置图片背景颜色\\
+\\
+ float x=gRandom->Uniform(-5.,5.);\\
+ h1->Fill(x);                       //均匀分布\\
+h1->FillRandom("gaus",50000);       //\\
+\\
+h1->Draw();\\
+
+\subsection{Saving/Reading Histograms to/from a File}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The following statements create a ROOT file and store a histogram on the file. Because TH1 derives from TNamed , the key identifier on the file is the histogram name:\\
+TFile f("histos.root","new");\\
+TH1F h1("hgaus","histo from a gaussian",100,-3,3);\\
+h1.FillRandom("gaus",10000);\\
+h1->Write();\\
+To read this histogram in another ROOT session, do:\\
+TFile f("histos.root");\\
+TH1F *h = (TH1F*)f.Get("hgaus");\\
+One can save all histograms in memory to the file by:\\
+file->Write();\\
+For a more detailed explanation, see “Input/Output”.\\
+
+\subsection{Draw Options} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//eg. h->Draw("E1SAME"); 或 h->SetOption("lego");h->Draw();\\
+\\
+\subsubsection{all histogram classes}
+The following draw options are supported on all histogram classes:\\
+• “AXIS”: Draw only the axis.\\
+• “HIST”: When a histogram has errors, it is visualized by default with error bars. To visualize it without errors use HIST together with the required option (e.g. “HIST SAME C”).\\
+• “SAME”: Superimpose on previous picture in the same pad.\\
+• “CYL”: Use cylindrical coordinates.\\
+• “POL”: Use polar coordinates.\\
+• “SPH”: Use spherical coordinates.\\
+• “PSR”: Use pseudo-rapidity/phi coordinates.  //通常的二维直方图\\
+• “LEGO”: Draw a lego plot with hidden line removal.\\
+• “LEGO1”: Draw a lego plot with hidden surface removal.\\
+• “LEGO2”: Draw a lego plot using colors to show the cell contents.\\
+• “SURF”: Draw a surface plot with hidden line removal.\\
+• “SURF1”: Draw a surface plot with hidden surface removal.\\
+• “SURF2”: Draw a surface plot using colors to show the cell contents.\\
+• “SURF3”: Same as SURF with a contour view on the top.\\
+• “SURF4”: Draw a surface plot using Gouraud shading.\\
+• “SURF5”: Same as SURF3 but only the colored contour is drawn. Used with option CYL , SPH or PSR it allows to draw colored contours on a sphere, a cylinder or in a pseudo rapidly space. In Cartesian or polar coordinates,option SURF3 is used.\\
+
+\subsubsection{1-D histogram classes}
+The following options are supported for 1-D histogram classes:\\
+• “AH”: Draw the histogram, but not the axis labels and tick marks\\
+• “B”: Draw a bar chart\\
+• “C”: Draw a smooth curve through the histogram bins  //将每个bin用一条光滑的曲线连接起来\\
+• “E”: Draw the error bars    //“E0”- “E4” 与误差有关的参数\\
+• “E0”: Draw the error bars including bins with 0 contents\\
+• “E1”: Draw the error bars with perpendicular lines at the edges\\
+• “E2”: Draw the error bars with rectangles\\
+• “E3”: Draw a fill area through the end points of the vertical error bars\\
+• “E4”: Draw a smoothed filled area through the end points of the error bars\\
+• “L”: Draw a line through the bin contents  //将每个bin用线连接\\
+• “P”: Draw a (poly)marker at each bin using the histogram’s current marker style\\
+• “P0”: Draw current marker at each bin including empty bins\\
+• “PIE”: Draw a Pie Chart\\
+• “*H”: Draw histogram with a * at each bin\\
+• “LF2”: Draw histogram as with option “L” but with a fill area. Note that “L” also draws a fill area if the histogram fill color is set but the fill area corresponds to the histogram contour.\\
+• “9”: Force histogram to be drawn in high resolution mode. By default, the histogram is drawn in low resolution in case the number of bins is greater than the number of pixels in the current pad\\
+• “][”: Draw histogram without the vertical lines for the first and the last bin. Use it when superposing many histograms on the same picture.\\
+
+\subsubsection{2-D histogram classes}
+The following options are supported for 2-D histogram classes:\\
+• “ARR”: Arrow mode. Shows gradient between adjacent cells\\
+• “BOX”: Draw a box for each cell with surface proportional to contents  //每个单元画一BOX，Box面积正比于bin contents\\
+• “BOX1”: A sunken button is drawn for negative values, a raised one for positive values\\
+• “COL”: Draw a box for each cell with a color scale varying with contents  //每个单元画一个box，颜色与 bin contents相关\\
+• “COLZ”: Same as “COL” with a drawn color palette  //同col，但是画一个条显示颜色与内容对应关系\\
+• “CONT”: Draw a contour plot (same as CONT0 )  //画轮廓图\\
+• “CONTZ”: Same as “CONT” with a drawn color palette\\
+• “CONT0”: Draw a contour plot using surface colors to distinguish contours\\
+• “CONT1”: Draw a contour plot using line styles to distinguish contours\\
+• “CONT2”: Draw a contour plot using the same line style for all contours\\
+• “CONT3”: Draw a contour plot using fill area colors\\
+• “CONT4”: Draw a contour plot using surface colors (SURF2 option at theta = 0)\\
+• "CONT5": Use Delaunay triangles to compute the contours\\
+• “LIST”: Generate a list of TGraph objects for each contour\\
+• “FB”: To be used with LEGO or SURFACE , suppress the Front-Box\\
+• “BB”: To be used with LEGO or SURFACE , suppress the Back-Box\\
+• “A”: To be used with LEGO or SURFACE , suppress the axis\\
+• “SCAT”: Draw a scatter-plot (default)  //绘制散点图\\
+• “SPEC”: Use TSpectrum2Painter tool for drawing\\
+• “TEXT”: Draw bin contents as text (format set via gStyle->SetPaintTextFormat) .\\
+• “TEXTnn”: Draw bin contents as text at angle nn ( 0<nn<90 ).\\
+• “[cutg]”: Draw only the sub-range selected by the TCutG name “cutg”.\\
+• “Z”: The “Z” option can be specified with the options: BOX, COL, CONT, SURF, and LEGO to display the color palette with an axis indicating the value of the corresponding color on the right side ofthe picture.\\
+
+\subsubsection{3-D histogram classes}
+The following options are supported for 3-D histogram classes:\\
+• " " : Draw a 3D scatter plot.\\
+• “BOX”: Draw a box for each cell with volume proportional to contents\\
+• “LEGO”: Same as “BOX”\\
+• “ISO”: Draw an iso surface\\
+• “FB”: Suppress the Front-Box\\
+• “BB”: Suppress the Back-Box\\
+• “A”: Suppress the axis\\
+
+\subsection{Graph Draw Options} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The various drawing options for a graph are explained in TGraph::PaintGraph. They are:\\
+• “L” A simple poly-line between every points is drawn   //折线图,将每个bin用线连接\\
+• “F” A fill area is drawn\\
+• “F1” Idem as “F” but fill area is no more repartee around X=0 or Y=0\\
+• “F2” draw a fill area poly line connecting the center of bins\\
+• “A” Axis are drawn around the graph\\
+• “C” A smooth curve is drawn  //将每个bin用一条光滑的曲线连接起来\\
+• “*” A star is plotted at each point//每个点用*表示\\
+• “P” The current marker of the graph is plotted at each point\\
+• “B” A bar chart is drawn at each point\\
+• “[]” Only the end vertical/horizontal lines of the error bars are drawn. This option only applies to the TGraphAsymmErrors.\\
+• “1” ylow = rwymin\\
+\\
+The TGraphPolar drawing options are:\\
+“O” Polar labels are paint orthogonally to the polargram radius.\\
+“P” Polymarker are paint at each point position.\\
+“E” Paint error bars.\\
+“F” Paint fill area (closed polygon).\\
+“A”Force axis redrawing even if a polagram already exists.\\
+
+\subsection{Fill} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+You can also call a Fill() function with one of the arguments being a string:\\
+hist1->Fill(somename,weigth);\\
+hist2->Fill(x,somename,weight);\\
+hist2->Fill(somename,y,weight);\\
+hist2->Fill(somenamex,somenamey,weight);\\
+
+\subsection{gRandom} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+gRandom->SetSeed();//设置随机种子\\
+gRandom->Binomial(ntot,p)       //二项分布\\
+gRandom->BreiWigner(mean,gamma) //Brei-Wigner分布\\
+gRandom->Exp(tau)               //指数分布\\
+gRandom->Gaus(mean,sigma)       //高斯分布\\
+gRandom->Integer(imax)          //（0，imax-1）随机整数\\
+gRandom->Landau(mean,sigma)     //Landau分布\\
+gRandom->Poisson(mean)          //泊松分布（返回int）\\
+gRandom->PoissonD(mean)         //泊松分布（返回double）\\
+gRandom->Rndm()                 //（0，1]均匀分布\\
+gRandom->Uniform(x1,x2)         //（x1，x2]均匀分布\\
+
+\subsection{Fitting Histograms} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+• *fname:The name of the fitted function (the model) is passed as the first parameter. This name may be one of ROOT pre-defined function names or a user-defined function. The functions below are predefined, and can be used with the TH1::Fit method:\\
+• “gaus” Gaussian function with 3 parameters: f(x) = p0*exp(-0.5*((x-p1)/p2)\^{}2)\\
+• “expo”An Exponential with 2 parameters: f(x) = exp(p0+p1*x)\\
+• “polN ” A polynomial of degree N : f(x) = p0 + p1*x + p2*x2 +...\\
+• “landau” Landau function with mean and sigma. This function has been adaptedfrom the CERNLIB routine G110 denlan.\\
+• *option:The second parameter is the fitting option. Here is the list of fitting options:\\
+• “W” Set all weights to 1 for non empty bins; ignore error bars\\
+• “WW” Set all weights to 1 including empty bins; ignore error bars\\
+• “I” Use integral of function in bin instead of value at bin center\\
+• “L” Use log likelihood method (default is chi-square method)\\
+• “U” Use a user specified fitting algorithm\\
+• “Q” Quiet mode (minimum printing)\\
+• “V” Verbose mode (default is between Q and V)\\
+• “E” Perform better errors estimation using the Minos technique\\
+• “M” Improve fit results\\
+• “R” Use the range specified in the function range\\
+• “N” Do not store the graphics function, do not draw\\
+• “0” Do not plot the result of the fit. By default the fitted function is drawn unless the option “N” above is specified.\\
+• “+” Add this new fitted function to the list of fitted functions (by default, the previous function is deleted and only the last one is kept)\\
+• “B”Use this option when you want to fix one or more parameters and the fitting function is like polN, expo, landau, gaus.\\
+• “LL”An improved Log Likelihood fit in case of very low statistics and when bincontentsare not integers. Do not use this option if bin contents are large (greater than 100).\\
+• “C”In case of linear fitting, don’t calculate the chisquare (saves time).\\
+• “F”If fitting a polN, switch to Minuit fitter (by default, polN functions are fitted by the linear fitter).\\
+• *goption:The third parameter is the graphics option that is the same as in the TH1::Draw (see the chapter Draw Options).\\
+• xxmin, xxmax:Thee fourth and fifth parameters specify the range over which to apply the fit.\\
+
+\section{shell}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+(精通shell编程（第二版）[美]Srirange Veeraghavan著，卢涛译，人民邮电出版社，ISBN7-115-11141-3/TP*3354)\\
+\\
+为了确保使用合适的shell来执行，需加入一行“幻行”作为脚本第一行。\\
+我们使用sh来运行脚本      \#！/bin/sh\\
+
+启动非交互式的shell：（filename是包含可执行命令的文件的名称）\\
+/bin/sh filename \\      
+\\
+\\
+\$HOME/.bash\_profile(/etc/profile)\\
+export     \\
+\\
+美元符号\$只能被用来访问变量的值，不能定义或分配变量值。\\
+PATH   //描述命令的搜索路径。它是一个由冒号分离的shell寻找命令的目录列表。\\
+echo  //变量替换,在变量前加\$\\
+
+\subsection{\kai 置换和通配}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+* //匹配0个或多个任意字符\\
+？//陪陪一个任意字符\\
+$[$characters$]$     //匹配给定的characters中的任意一个字符\\
+\\
+`xxx`     //反引号，反引号允许将shell命令的输出赋值给变量。xxx可以是一个简单的命令，一个管道|或者是一个列表；（隔开）。\\
+
+\subsection{\kai 输入和输出}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+输出重定向\\
+为了把一个命令或脚本的输出重定向到文件而不是输出到STDOUT，要使用输出重定向操作符（>）如下所示：
+cmd > file     或list > file\\
+第一种形式将命令cmd的输出重定向到由file指定的文件file，而第二种形式把命令列表list的输出重定向到由file指定的文件file。\\
+如果指定的文件file存在，它的内容将被覆盖；如果file不存在，则它会被生成。\\
+\\
+追加到文件\\
+简单地把命令的输出重定向到一个文件从而覆盖该文件经常不是我们想要的。操作符(>>)可以把输出追加到文件中。\\
+cmd >> file     或list >> file\\
+命令的输出被追加到文件的尾部。如果文件不存在，它将被生成。\\
+
+\subsection{\kai 引用}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+反斜线（\textbackslash），单引号（' '），双引号（" "）\\
+单独反斜线通常用于实现其后字符的引用。\\
+全部需要引用处理的元字符 * ? $[$$]$ ' " \textbackslash \$ ; \& ( ) | \^{} ! \# newline tab\\
+字符串用单引号实现引用处理时，字符串中所有元字符失去它们的特殊含义，并当作它们的本意来处理。\\
+双引号禁止了除了\$和'以外的所有元字符，因此变量和命令域在一个引用处理的字符串中都起作用。 \\
+
+\subsection{\kai if语句}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lstlisting}
+if[ expression ];
+then
+  list1;
+elif[ expression ];
+then
+  list2;
+else
+  list3;
+fi
+\end{lstlisting}
+指定给一条if语句的列表是一条或多条test命令。test命令的语法如下：  test expr\\
+这里expr是通过test命令所能理解的一个选项来构建的。计算完expr后，test返回0（真）或1（假）。\\
+开括号（[）通常用作test的缩写： [ expression ]   这里expr是任何一种test所能理解的有效表达式。\\
+闭括号（]）是必需的，并且在闭括号（]）前和开括号（[）后都需要空格。\\
+\subsubsection{\kai test的文件测试选项}
+-b file    //当file存在并且是块文件时返回真\\
+-c file    //当file存在并且是字符文件时返回真\\
+-d pathname//当pathname存在并且是一个目录时返回真\\
+-e pathname//当由pathname指定的文件或目录存在时返回真\\
+-f file    //当file存在并且是正规文件时返回真\\
+-g pathname//当由pathname指定的文件或目录存在并且设置了SGID位时返回真\\
+-h file    //当file存在并且是符号链接文件时返回真，该选项在一些老系统上无效\\
+-k pathname//当由pathname指定的文件或目录存在并且设置了“黏滞”位时返回真\\
+-p file    //当file存在并且是命名管道时返回真\\
+-r pathname//当由pathname指定的文件或目录存在并且可读时返回真\\
+-s file    //当file存在并且文件大小大于0时返回真\\
+-u pathname//当由pathname指定的文件或目录存在并且设置了SUID位时返回真\\
+-w pathname//当由pathname指定的文件或目录存在并且可写时返回真\\
+-x pathname//当由pathname指定的文件或目录存在并且可执行时返回真。一个目录为了它的内容能被访问必然是可执行的。\\
+-o pathname//当由pathname指定的文件或目录存在并且被当前进程的有效用户ID所指定的用户拥有时返回真
+\subsubsection{\kai test命令的字符串比较选项}
+-z str     //当str长度为0时返回真\\
+-n str     //当str长度为非0时返回真\\ 
+str1=str2  //当str1和str2相等时返回真\\
+str1!=str2 //当str1和str2不等时返回真\\
+\subsubsection{\kai test命令的数字比较操作符}
+int1 -eq int2      //如果int1等于int2，返回真\\
+int1 -ne int2      //如果int1不等于int2，返回真\\
+int1 -lt int2      //如果int1小于int2，返回真\\
+int1 -le int2      //如果int1小于等于int2，返回真\\
+int1 -gt int2      //如果int1大于int2，返回真\\
+int1 -ge int2      //如果int1大于等于int2，返回真\\
+\subsubsection{\kai 创建复合表达式的操作符}
+！expr     //expr为假时返回真\\
+expr1 -a expr2     //expr1和expr2都为真时返回真\\
+expr1 -o expr2     //expr1或expr2为真时返回真\\
+
+\subsection{\kai case语句}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lstlisting}
+case word in
+  pattern1) list1;;
+  ``````
+  patternN) listN;;
+esac
+\end{lstlisting}
+字符串变量word与从pattern1到patternN的所有模式一一比较。当找到一个匹配的模式后就执行跟在匹配模式后的list。\\
+当一个list执行完了，专用命令；；表明流应该跳转到case语句的最后。；；类似于C程序中的break指令。\\
+如果找不到匹配的模式，case语句就不做任何动作。至少要有一条模式，堆模式的最大数目没有限制。\\
+
+\subsection{\kai while循环}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lstlisting}
+while cmd
+do
+  list
+done
+\end{lstlisting}
+这里cmd是一个单一的命令，而list是一个或多个命令列表。command可以是任何合法的命令，通常是test表达式。\\
+do和done关键字并不认为是while循环的主体，因为shell只使用它们来检查while循环的开始和结束。\\
+\\
+while循环可以和输入重定向结合，从文件中一次读出一行。基本语法如下：
+\begin{lstlisting}
+while read LINE
+do
+： #manipulate file here
+done < file
+\end{lstlisting}
+在whlie的主体中，可以操作特定文件的每一行。一个简单的例子如下：
+\begin{lstlisting}
+while read LINE
+do
+  case $LINE in
+  *root*) echo $LINE ;;
+esac
+done < /ect/passwd
+\end{lstlisting}
+这里只有在文件/ect/passwd中包含root的行被显示：\\
+输出如下：  root：x：0：1：Super-User:/:/sbin/sh\\
+\\
+for循环：\\
+for循环使你能对列表中的每一项重复执行一系列命令。一个常见的用法是对大量的文件执行相同的命令集。基本语法是：
+\begin{lstlisting}
+for name in word1 word2 ... wordN
+do
+    list
+done
+\end{lstlisting}
+这里name是变量名，word1到wordN是一系列由空格分隔的字符序列（单词）。\\
+每次执行for循环时，变量name的值就被设为单词列表（word1到wordN）中的下一个单词。\\
+第一次，name设为word1；第二次设为word2；以此类推。这表明for循环执行的次数取决于指定的word的个数。\\
+
+\section{\kai Emacs快捷键}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C = Control\\
+M = Meta = Alt | Esc\\
+Del = Backspace\\
+\subsection{\kai 基本快捷键(Basic)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C-x C-f "find"文件, 即在缓冲区打开/新建一个文件\\
+C-x C-s 保存文件\\
+C-x C-w 使用其他文件名另存为文件\\
+C-x C-v 关闭当前缓冲区文件并打开新文件\\
+C-x i 在当前光标处插入文件\\
+C-x b 新建/切换缓冲区\\
+C-x C-b 显示缓冲区列表\\
+C-x k 关闭当前缓冲区\\
+C-z 挂起emacs\\
+C-x C-c 关闭emacs\\
+
+\subsection{\kai 光标移动基本快捷键(Basic Movement)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C-f 后一个字符\\
+C-b 前一个字符\\
+C-p 上一行\\
+C-n 下一行\\
+M-f 后一个单词\\
+M-b 前一个单词\\
+C-a 行首\\
+C-e 行尾\\
+C-v 向下翻一页\\
+M-v 向上翻一页\\
+M-< 到文件开头\\
+M-> 到文件末尾\\
+
+\subsection{\kai 编辑(Editint)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+M-n 重复执行后一个命令n次\\
+C-u 重复执行后一个命令4次\\
+C-u n 重复执行后一个命令n次\\
+C-d 删除(delete)后一个字符\\
+M-d 删除后一个单词\\
+Del 删除前一个字符\\
+M-Del 删除前一个单词\\
+C-k 移除(kill)一行\\
+
+\subsection{\kai C-Space 设置开始标记 (例如标记区域)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C-@ 功能同上, 用于C-Space被操作系统拦截的情况\\
+C-w 移除(kill)标记区域的内容\\
+M-w 复制标记区域的内容\\
+C-y 召回(yank)复制/移除的区域/行\\
+M-y 召回更早的内容 (在kill缓冲区内循环)\\
+C-x C-x 交换光标和标记\\
+  \\
+C-t 交换两个字符的位置\\
+M-t 交换两个单词的位置\\
+C-x C-t 交换两行的位置\\
+M-u 使从光标位置到单词结尾处的字母变成大写\\
+M-l 与M-u相反\\
+M-c 使从光标位置开始的单词的首字母变为大写\\
+
+\subsection{\kai 重要快捷键(Important)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C-g 停止当前运行/输入的命令\\
+C-x u 撤销前一个命令\\
+M-x revert-buffer RETURN (照着这个输入)撤销上次存盘后所有改动\\
+M-x recover-file RETURN 从自动存盘文件恢复\\
+M-x recover-session RETURN 如果你编辑了几个文件, 用这个恢复\\
+
+\subsection{\kai 在线帮助(Online-Help)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C-h c 显示快捷键绑定的命令\\
+C-h k 显示快捷键绑定的命令和它的作用\\
+C-h l 显示最后100个键入的内容\\
+C-h w 显示命令被绑定到哪些快捷键上\\
+C-h f 显示函数的功能\\
+C-h v 显示变量的含义和值\\
+C-h b 显示当前缓冲区所有可用的快捷键\\
+C-h t 打开emacs教程\\
+C-h i 打开info阅读器\\
+C-h C-f 显示emacs FAQ\\
+C-h p 显示本机Elisp包的信息\\
+
+\subsection{\kai 搜索/替换(Seach/Replace)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C-s 向后搜索\\
+C-r 向前搜索\\
+C-g 回到搜索开始前的位置(如果你仍然在搜索模式中)\\
+M-\% 询问并替换(query replace)\\
+ \\
+Space或y 替换当前匹配\\
+Del或n 不要替换当前匹配\\
+. 仅仅替换当前匹配并退出(替换)\\
+, 替换并暂停(按Space或y继续)\\
+! 替换以下所有匹配\\
+\^{} 回到上一个匹配位置\\
+RETURN或q 退出替换\\
+ \\
+使用正则表达式(Regular expression)搜索/替换\\
+可在正则表达式中使用的符号:\\
+\^{} 行首\\
+\$ 行尾\\
+. 单个字符\\
+.* 任意多个(包括没有)字符\\
+\textbackslash < 单词开头\\
+\textbackslash > 单词结尾\\
+$[]$括号中的任意一个字符(例如[a-z]表示所有的小写字母)\\
+\\  
+M C-s RETURN 使用正则表达式向后搜索\\
+M C-r RETURN 使用正则表达式向前搜索\\
+C-s 增量搜索\\
+C-s 重复增量搜索\\
+C-r 向前增量搜索\\
+C-r 重复向前增量搜索\\
+M-x query-replace-regexp 使用正则表达式搜索并替换\\
+
+\subsection{\kai 窗口命令(Window Commands)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C-x 2 水平分割窗格\\
+C-x 3 垂直分割窗格\\
+C-x o 切换至其他窗格\\
+C-x 0 关闭窗格\\
+C-x 1 关闭除了光标所在窗格外所有窗格\\
+C-x \^{} 扩大窗格\\
+M-x shrink-window 缩小窗格\\
+M C-v 滚动其他窗格内容\\
+C-x 4 f 在其他窗格中打开文件\\
+C-x 4 0 关闭当前缓冲区和窗格\\
+C-x 5 2 新建窗口(frame)\\
+C-x 5 f 在新窗口中打开文件\\
+C-x 5 o 切换至其他窗口\\
+C-x 5 0 关闭当前窗口\\
+
+\subsection{\kai 书签命令(Bookmark commands)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C-x r m 在光标当前位置创建书签\\
+C-x r b 转到书签\\
+M-x bookmark-rename 重命名书签\\
+M-x bookmark-delete 删除书签\\
+M-x bookmark-save 保存书签\\
+C-x r l 列出书签清单\\
+  \\
+d 标记等待删除\\
+Del 取消删除标记\\
+x 删除被标记的书签\\
+r 重命名\\
+s 保存列表内所有书签\\
+f 转到当前书签指向的位置\\
+m 标记在多窗口中打开\\
+v 显示被标记的书签(或者光标当前位置的书签)\\
+t 切换是否显示路径列表\\
+w 显示当前文件路径\\
+q 退出书签列表\\
+  \\
+M-x bookmark-write 将所有书签导出至指定文件\\
+M-x bookmark-load 从指定文件导入书签\\
+
+\subsection{Shell}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+M-x shell 打开shell模式\\
+C-c C-c 类似unix里的C-c(停止正在运行的程序)\\
+C-d 删除光标后一个字符\\
+C-c C-d 发送EOF\\
+C-c C-z 挂起程序(unix下的C-z)\\
+M-p 显示前一条命令\\
+M-n 显示后一条命令\\
+
+\subsection{DIRectory EDitor (dired)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C-x d 打开dired\\
+C(大写C) 复制\\
+d 标记等待删除\\
+D 立即删除\\
+e或f 打开文件或目录\\
+g 刷新当前目录\\
+G 改变文件所属组(chgrp)\\
+k 从屏幕上的列表里删除一行(不是真的删除)\\
+m 用*标记\\
+n 光标移动到下一行\\
+o 在另一个窗格打开文件并移动光标\\
+C-o 在另一个窗格打开文件但不移动光标\\
+P 打印文件\\
+q 退出dired\\
+Q 在标记的文件中替换\\
+R 重命名文件\\
+u 移除标记\\
+v 显示文件内容\\
+x 删除有D标记的文件\\
+Z 压缩/解压缩文件\\
+M-Del 移除标记(默认为所有类型的标记)\\
+~ 标记备份文件(文件名有~的文件)等待删除\\
+\# 标记自动保存文件(文件名形如\#name\#)等待删除\\
+*/ 用*标记所有文件夹(用C-u */n移除标记)\\
+= 将当前文件和标记文件(使用C-@标记而不是dired的m标记)比较\\
+M-= 将当前文件和它的备份比较\\
+! 对当前文件应用shell命令\\
+M-\} 移动光标至下一个用*或D标记的文件\\
+M-\{ 移动光标至上一个用*或D标记的文件\\
+\% d 使用正则表达式标记文件等待删除\\
+\% m 使用正则表达式标记文件为*\\
++ 新建文件夹\\
+> 移动光标至后一个文件夹\\
+< 移动光标至前一个文件夹\\
+s 切换排序模式(按文件名/日期)\\
+  \\
+或许把这个命令归入这一类也很合适:\\
+M-x speedbar 打开一个独立的目录显示窗口\\
+
+\subsection{Telnet}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+M-x telnet 打开telnet模式\\
+C-d 删除后一个字符或发送EOF\\
+C-c C-c 停止正在运行的程序(和unix下的C-c类似)\\
+C-c C-d 发送EOF\\
+C-c C-o 清除最后一个命令的输出\\
+C-c C-z 挂起正在运行的命令\\
+C-c C-u 移除前一行\\
+M-p 显示前一条命令\\
+
+\subsection{Text}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+只能在text模式里使用\\
+M-s 使当前行居中\\
+M-S 使当前段落居中\\
+M-x center-region 使被选中的区域居中\\
+
+\subsection{\kai 宏命令(Macro-commands)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C-x ( 开始定义宏\\
+C-x ) 结束定义宏\\
+C-x e 运行最近定义的宏\\
+M-n C-x e 运行最近定义的宏n次\\
+M-x name-last-kbd-macro 给最近定义的宏命名(用来保存)\\
+M-x insert-kbd-macro 将已命名的宏保存到文件\\
+M-x load-file 载入宏\\
+
+\subsection{\kai 编程(Programming)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+M C-\textbackslash 自动缩进光标和标记间的区域\\
+M-m 移动光标到行首第一个(非空格)字符\\
+M-\^{} 将当前行接到上一行末尾处\\
+M-; 添加缩进并格式化的注释\\
+C, C++和Java模式\\
+M-a 移动光标到声明的开始处\\
+M-e 移动光标到声明的结尾处\\
+M C-a 移动光标到函数的开始处\\
+M C-e 移动光标到函数的结尾处\\
+C-c RETURN 将光标移动到函数的开始处并标记到结尾处\\
+C-c C-q 根据缩进风格缩进整个函数\\
+C-c C-a 切换自动换行功能\\
+C-c C-d 一次性删除光标后的一串空格(greedy delete)\\
+  \\
+为了实现下面的一些技术, 你需要在保存源代码的目录里运行"etags *.c *.h *.cpp"(或者源代码的其他的扩展名)\\
+M-.(点) 搜索标签\\
+M-x tags-search ENTER 在所有标签里搜索(使用正则表达式)\\
+M-,(逗号) 在tags-search里跳至下一个匹配处\\
+M-x tags-query-replace 在设置过标签的所有文件里替换文本\\
+
+\subsection{\kai GDB(调试器)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+M-x gdb 在另一个的窗格中打开gdb\\
+
+\subsection{\kai 版本控制(Version Control)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C-x v d 显示当前目录下所有注册过的文件(show all registered files in this dir)\\
+C-x v = 比较不同版本间的差异(show diff between versions)\\
+C-x v u 移除上次提交之后的更改(remove all changes since last checkin)\\
+C-x v ~ 在不同窗格中显示某个版本(show certain version in different window)\\
+C-x v l 打印日志(print log)\\
+C-x v i 标记文件等待添加版本控制(mark file for version control add)\\
+C-x v h 给文件添加版本控制文件头(insert version control header into file)\\
+C-x v r 获取命名过的快照(check out named snapshot)\\
+C-x v s 创建命名的快照(create named snapshot)\\
+C-x v a 创建gnu风格的更改日志(create changelog file in gnu-style)\\
+
+\section{\kai C++总结}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\kai 头文件}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tabular}{cc}
+\hline
+\#include<cstdio> & \\
+\#include<iostream> & 标准输入输出流\\
+\#include<cstring> & 字符串\\
+\#include<cmath> & 数学类\\
+\#include<fstream> & \\
+\#include<vector> & 容器\\
+\#include<map> & 容器\\
+\hline
+\end{tabular}
+
+\subsection{\kai 关键字}
+auto bool break case catch char class const const\_cast continue default delete do double dynamic\_cast else enum explicit extern false float for friend goto if inline int long mutable namespace new operator private protected public register reinterpret\_cast return short signed sizeof static static\_east struct switch template this throw true try typedef typeid typename union unsigned using virtual void volatile while \\
+
+\subsection{inline}
+嵌入到主调函数中的函数称为内置函数。指定内置函数的方法很简单,只需在函数首行的左端加一个关键字inline即可。\\
+使用内置函数可以节省运行时间,但却增加了目标程序的长度。因此一般只将规模很小(一般为5个语句以下)而使用频繁的函数(如定时采集数据的函数)声明为内置函数。\\
+内置函数中不能包括复杂的控制语句,如循环语句和switch语句。\\
+应当说明: 对函数作inline声明,只是程序设计者对编译系统提出的一个建议,也就是说它是建议性的,而不是指令性的。并非一经指定为inline,编译系统就必须这样做。编译系统会根据具体情况决定是否这样做。\\
+
+\subsection{函数的重载}
+C++允许用同一函数名定义多个函数,这些函数的参数个数和参数类型不同。这就是函数的重载。即对一个函数名重新赋予它新的含义,使一个函数名可以多用。\\
+重载函数的参数个数、参数类型或参数顺序3者中必须至少有一种不同,函数返回值类型可以相同也可以不同。在使用重载函数时,同名函数的功能应当相同或相近,不要用同一函数名去实现完全不相干的功能,虽然程序也能运行,但可读性不好,使人莫名其妙。\\
+
+\subsection{函数模板}
+template<typename T>   //模板声明,其中T为类型参数\\
+定义函数模板的一般形式为template < typename T> 或 template <class T>。即用虚拟的类型名T代替具体的数据类型。\\
+用函数模板比函数重载更方便,程序更简洁。但应注意它只适用于函数的参数个数相同而类型不同,且函数体相同的情况,如果参数的个数不同,则不能用函数模板。\\
+
+\subsection{构造函数}
+构造函数是一种特殊的成员函数,与其他成员函数不同,不需要用户来调用它,而是在建立对象时自动执行。构造函数的名字必须与类名同名,而不能由用户任意命名,以便编译系统能识别它并把它作为构造函数处理。它不具有任何类型,不返回任何值。构造函数的功能是由用户定义的,用户根据初始化的要求设计函数体和函数参数。\\
+有关构造函数的使用,有以下说明:\\
+(1) 在类对象进入其作用域时调用构造函数。\\
+(2) 构造函数没有返回值,因此也不需要在定义构造函数时声明类型,这是它和一般函数的一个重要的不同之点。\\
+(3) 构造函数不需用户调用,也不能被用户调用。\\
+(4) 在构造函数的函数体中不仅可以对数据成员赋初值,而且可以包含其他语句。但是一般不提倡在构造函数中加入与初始化无关的内容,以保持程序的清晰。\\
+(5) 如果用户自己没有定义构造函数,则C++系统会自动生成一个构造函数,只是这个构造函数的函数体是空的,也没有参数,不执行初始化操作。\\
+可以采用带参数的构造函数,在调用不同对象的构造函数时,从外面将不同的数据传递给构造函数,以实现不同的初始化。构造函数首部的一般格式为:构造函数名(类型 1 形参1,类型2 形参2,...)\\
+前面已说明: 用户是不能调用构造函数的,因此无法采用常规的调用函数的方法给出实参。实参是在定义对象时给出的。定义对象的一般格式为:类名 对象名(实参1,实参2,...);\\
+说明:\\
+(1) 调用构造函数时不必给出实参的构造函数,称为默认构造函数。显然,无参的构造函数属于默认构造函数。一个类只能有一个默认构造函数。\\
+(2) 如果在建立对象时选用的是无参构造函数,应注意正确书写定义对象的语句。\\
+(3) 尽管在一个类中可以包含多个构造函数,但是对于每一个对象来说,建立对象时只执行其中一个构造函数,并非每个构造函数都被执行。\\
+
+\subsection{析构函数}
+具体地说如果出现以下几种情况,程序就会执行析构函数: 1.如果在一个函数中定义了一个对象(它是自动局部对象),当这个函数被调用结束时,对象应该释放,在对象释放前自动执行析构函数。2.static局部对象在函数调用结束时对象并不释放,因此也不调用析构函数,只在main函数结束或调用exit函数结束程序时,才调用static局部对象的析构函数。3.如果定义了一个全局对象,则在程序的流程离开其作用域时(如main函数结束或调用exit函数) 时,调用该全局对象的析构函数。4.如果用new运算符动态地建立了一个对象,当用delete运算符释放该对象时,先调用该对象的析构函数。\\
+析构函数的作用并不是删除对象,而是在撤销对象占用的内存之前完成一些清理工作,使这部分内存可以被程序分配给新对象使用。程序设计者事先设计好析构函数,以完成所需的功能,只要对象的生命期结束,程序就自动执行析构函数来完成这些工作。\\
+析构函数不返回任何值,没有函数类型,也没有函数参数。因此它不能被重载。一个类可以有多个构造函数,但只能有一个析构函数。\\
+实际上,析构函数的作用并不仅限于释放资源方面,它还可以被用来执行“用户希望在最后一次使用对象之后所执行的任何操作”,例如输出有关的信息。这里说的用户是指类的设计者,因为,析构函数是在声明类的时候定义的。也就是说,析构函数可以完成类的设计者所指定的任何操作。\\
+\\
+调用对象既可以通过对象名,也可以通过指针。用new建立的动态对象一般是不用对象名的,是通过指针访问的,它主要应用于动态的数据结构,如链表。访问链表中的结点,并不需要通过对象名,而是在上一个结点中存放下一个结点的地址,从而由上一个结点找到下一个结点,构成链接的关系。在不再需要使用由new建立的对象时,可以用delete运算符予以释放。如果用一个指针变量先后指向不同的动态对象,应注意指针变量的当前指向,以免删错了对象。在执行delete运算符时,在释放内存空间之前,自动调用析构函数,完成有关善后清理工作。\\
+对象的赋值只对其中的数据成员赋值,而不对成员函数赋值。类的数据成员中不能包括动态分配的数据,否则在赋值时可能出现严重后果。\\
+
+\subsection{对象的复制}
+有时需要用到多个完全相同的对象。此外,有时需要将对象在某一瞬时的状态保留下来。这就是对象的复制机制。用一个已有的对象快速地复制出多个完全相同的对象。如Box box2(box1);其作用是用已有的对象box1去克隆出一个新对象box2。其一般形式为:类名 对象2(对象1);用对象1复制出对象2。
+
+
+
+
+\end{document}
+%\section{\kai 一级标题}
+%\subsection{\kai 二级标题}
+%\subsubsection{\kai 三级标题}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% muban_latex.tex ends here
