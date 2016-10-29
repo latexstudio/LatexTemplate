@@ -7,7 +7,7 @@ LATEXnote.txt ---
 ;; Last-Updated: 五 5月  2 15:31:50 2014 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 10
-;; URL: http://wuhongyi.github.io 
+;; URL: http://wuhongyi.cn 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 空白距离
